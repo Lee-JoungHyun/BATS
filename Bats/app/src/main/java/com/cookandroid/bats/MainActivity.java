@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,6 +22,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        // 인터넷 사용 설정 //
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
+                .permitDiskReads()
+                .permitDiskWrites()
+                .permitNetwork().build());
 
         SignUp = (Button) findViewById(R.id.btn_signup);
         Login = (Button) findViewById(R.id.btn_login);

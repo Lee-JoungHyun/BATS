@@ -4,6 +4,8 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/BATS/Bats/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/BATS/Bats/app/src/main/res/layout/find_acc.xml" value="0.35052083333333334" />
+        <entry key="..\:/BATS/Bats/app/src/main/res/layout/find_account.xml" value="0.35052083333333334" />
         <entry key="..\:/BATS/Bats/app/src/main/res/layout/personal_main.xml" value="0.5" />
         <entry key="..\:/BATS/Bats/app/src/main/res/layout/signup.xml" value="0.33" />
       </map>
