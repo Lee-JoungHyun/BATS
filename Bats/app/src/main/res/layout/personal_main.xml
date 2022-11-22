@@ -12,7 +12,8 @@
         <com.github.mikephil.charting.charts.CandleStickChart
             android:id="@+id/CandleChart"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"></com.github.mikephil.charting.charts.CandleStickChart>
+            android:layout_height="match_parent"
+            ></com.github.mikephil.charting.charts.CandleStickChart>
     </LinearLayout>
 
     <LinearLayout
@@ -28,6 +29,16 @@
             android:textSize="30dp"
             android:text="현재 수익률"
             android:textColor="#ff0000"></TextView>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:orientation="vertical">
+
+        <
 
 
     </LinearLayout>
