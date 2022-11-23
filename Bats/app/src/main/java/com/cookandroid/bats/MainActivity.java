@@ -15,7 +15,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    Button SignUp, Login;
+    Button SignUp, Login, FindAcc;
     EditText ID, PW;
 
     @Override
@@ -30,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
 
         SignUp = (Button) findViewById(R.id.btn_signup);
         Login = (Button) findViewById(R.id.btn_login);
+        FindAcc = (Button) findViewById(R.id.btn_find);
         ID = (EditText) findViewById(R.id.edit_id);
         PW = (EditText) findViewById(R.id.edit_pw);
 
@@ -44,6 +45,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), PersonalMain.class);
+                startActivity(intent);
+            }
+        });
+        FindAcc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), FindAccount.class);
                 startActivity(intent);
             }
         });

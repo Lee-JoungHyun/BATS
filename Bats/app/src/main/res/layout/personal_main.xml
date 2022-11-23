@@ -7,12 +7,14 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="350dp"
+        android:layout_marginTop="15dp"
         android:orientation="vertical">
 
         <com.github.mikephil.charting.charts.CandleStickChart
             android:id="@+id/CandleChart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+
             ></com.github.mikephil.charting.charts.CandleStickChart>
     </LinearLayout>
 
@@ -21,14 +23,18 @@
         android:layout_height="100dp"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/stateTxt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+        <Button
+            android:id="@+id/btn_log"
+            android:layout_marginTop="30dp"
+            android:layout_width="500dp"
+            android:layout_height="50dp"
             android:layout_gravity="center"
-            android:textSize="30dp"
-            android:text="현재 수익률"
-            android:textColor="#ff0000"></TextView>
+            android:backgroundTint="#FFFFFF"
+            android:text="22/11/17/03:00 - 2.331(ETC)매수[22,736,000]"
+            android:textColor="#000000"></Button>
+            <!--
+            android:text="매매 기록"
+            -->
 
 
     </LinearLayout>
@@ -38,10 +44,31 @@
         android:layout_height="100dp"
         android:orientation="vertical">
 
-        <
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_gravity="center"
+            android:textSize="15dp"
+            android:text="현재보유(KRW) : 10,143"
+            android:textColor="#000000">
+        </TextView>
+
+
+        <TextView
+            android:id="@+id/stateTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="30dp"
+            android:text="수익률 = 0.03%"
+            android:textColor="#ff0000"></TextView>
+
+
 
 
     </LinearLayout>
+
+
 
     <LinearLayout
         android:layout_width="match_parent"

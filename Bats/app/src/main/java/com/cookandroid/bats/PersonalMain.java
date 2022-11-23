@@ -1,8 +1,10 @@
 package com.cookandroid.bats;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -22,19 +24,27 @@ import java.util.ArrayList;
 public class PersonalMain extends AppCompatActivity {
 
     CandleStickChart candleStickChart;
-    Button onBtn;
+    Button onBtn, showlog;
     TextView state;
     ArrayList candleList = new ArrayList();
-    ArrayList yValsCandleStick = new ArrayList();
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.personal_main);
         candleStickChart = (CandleStickChart) findViewById(R.id.CandleChart);
         onBtn = (Button) findViewById(R.id.onBtn);
         state = (TextView) findViewById(R.id.stateTxt);
+        showlog = (Button) findViewById(R.id.btn_log);
 
-        ///////////////////// 필요 없을 부분(캔들 임시 생성) ////////////////////////
-        CandleEntry tmp = new CandleEntry (0, 500F, 100F, 200F, 300F);
+        showlog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ShowLogPopup.class);
+                startActivity(intent);
+            }
+        });
+                ///////////////////// 필요 없을 부분(캔들 임시 생성) ////////////////////////
+                CandleEntry tmp = new CandleEntry(0, 500F, 100F, 200F, 300F);
         CandleEntry tmp2 = new CandleEntry (1, 450F, 200F,250F, 400F);
         CandleEntry tmp3 = new CandleEntry (2, 350F, 50F,270F, 100F);
         CandleEntry tmp4 = new CandleEntry(3, 200F, 70F,100F, 150F);

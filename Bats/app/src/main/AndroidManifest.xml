@@ -20,6 +20,8 @@
         </activity>
         <activity android:name=".SignUp"></activity>
         <activity android:name=".PersonalMain"></activity>
+        <activity android:name=".FindAccount"></activity>
+        <activity android:name=".ShowLogPopup" android:theme="@android:style/Theme.Dialog"></activity>
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />
