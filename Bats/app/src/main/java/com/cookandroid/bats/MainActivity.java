@@ -96,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Retrofit 객체 생성
         Retrofit.Builder builder3 = new Retrofit.Builder()
-                .baseUrl("https://672c-15-164-97-20.jp.ngrok.io/")
+                .baseUrl("https://b8b8-59-24-142-229.jp.ngrok.io/")
                 .addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit3 = builder3.build();
 
