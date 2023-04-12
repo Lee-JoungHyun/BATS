@@ -72,7 +72,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
         <Button
@@ -80,7 +80,15 @@
             android:layout_width="130dp"
             android:layout_height="66dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="40dp"
             android:text="매매 시작"></Button>
+
+        <Button
+            android:id="@+id/logOut"
+            android:layout_width="80dp"
+            android:layout_height="33dp"
+            android:layout_gravity="center"
+            android:text="로그 아웃"></Button>
 
     </LinearLayout>
 

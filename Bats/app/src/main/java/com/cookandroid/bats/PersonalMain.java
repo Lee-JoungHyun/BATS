@@ -1,8 +1,15 @@
 package com.cookandroid.bats;
 
+import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,6 +17,9 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKey;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -38,10 +48,11 @@ import java.util.TimerTask;
 public class PersonalMain extends AppCompatActivity {
 
     CandleStickChart candleStickChart;
-    Button onBtn, showlog;
+    Button onBtn, showlog, logOut;
     TextView state;
     ArrayList<CandleEntry> candleList = new ArrayList();
     private RequestQueue rQ;
+    boolean flag;
 
     Timer timer = new Timer();
     TimerTask TT = new TimerTask() {
@@ -117,6 +128,69 @@ public class PersonalMain extends AppCompatActivity {
         onBtn = (Button) findViewById(R.id.onBtn);
         state = (TextView) findViewById(R.id.stateTxt);
         showlog = (Button) findViewById(R.id.btn_log);
+        logOut = (Button) findViewById(R.id.logOut);
+        flag = false;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationChannel notificationChannel =
+                    new NotificationChannel(
+                            "Trading State",
+                            "거래 현재 상황",
+                            NotificationManager.IMPORTANCE_DEFAULT
+                    );
+            notificationChannel.setDescription("알람테스트");
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+
+        Notification noti = new NotificationCompat.Builder(this, "Trading State")
+                .setColor(Color.BLACK)
+                .setSmallIcon(android.R.drawable.ic_notification_overlay)
+                .setContentTitle("Bats 거래 상황")
+                .setContentText("+0.03%")
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setOngoing(true)
+                .build();
+        final NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        logOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                try {
+                    MasterKey masterkey = new MasterKey.Builder(getApplicationContext(), MasterKey.DEFAULT_MASTER_KEY_ALIAS)
+                            .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+                            .build();
+
+                    SharedPreferences sharedPreferences = EncryptedSharedPreferences
+                            .create(getApplicationContext(),
+                                    "autoLogin",
+                                    masterkey,
+                                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM);
+
+                    SharedPreferences.Editor spfEditor = sharedPreferences.edit();
+                    spfEditor.clear();
+                    spfEditor.commit();
+                    finish();
+
+                }catch (Exception ex) {
+
+                }
+            }
+        });
+        onBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!flag) {
+                    notificationManager.notify(0, noti);
+                    flag = true;
+                }
+                else {
+                    notificationManager.cancel(0);
+                    flag = false;
+                }
+            }
+        });
 
         if (rQ == null) {
             //리퀘스트큐 생성 (MainActivit가 메모리에서 만들어질 때 같이 생성이 될것이다.
@@ -157,6 +231,8 @@ public class PersonalMain extends AppCompatActivity {
                     }
             }
         })).start();
-    } //Timer 실행
 
+
+
+    }//Timer 실행
 }
