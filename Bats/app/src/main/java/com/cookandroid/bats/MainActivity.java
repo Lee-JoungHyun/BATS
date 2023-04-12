@@ -112,6 +112,10 @@ public class MainActivity extends AppCompatActivity {
                                         EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM);
 
                         SharedPreferences.Editor spfEditor = sharedPreferences.edit();
+                        spfEditor.clear();
+                        spfEditor.commit();
+                        finish();
+
                         spfEditor.putString("userId", text_id);
                         spfEditor.putString("userPw", text_pw);
                         spfEditor.commit();
