@@ -3,6 +3,11 @@
     package="com.cookandroid.bats">
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <permission android:name="com.cookandroid.bats.permission.C2D_MESSAGE"
+        android:protectionLevel="signature" />
+    <uses-permission android:name="com.cookandroid.bats.permission.C2D_MESSAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,12 +23,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service
+            android:name=".MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
         <activity android:name=".SignUp"></activity>
         <activity
             android:name=".PersonalMain"
             ></activity>
         <activity android:name=".FindAccount"></activity>
         <activity android:name=".ShowLogPopup" android:theme="@android:style/Theme.Dialog"></activity>
+
     </application>
 
 

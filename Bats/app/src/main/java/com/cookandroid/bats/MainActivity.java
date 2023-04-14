@@ -2,6 +2,7 @@ package com.cookandroid.bats;
 
 import static android.content.ContentValues.TAG;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
@@ -23,6 +24,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,6 +59,23 @@ public class MainActivity extends AppCompatActivity {
         ID = (EditText) findViewById(R.id.edit_id);
         PW = (EditText) findViewById(R.id.edit_pw);
         autologin = (CheckBox) findViewById(R.id.cbox_autologin);
+        /** 등록 토큰을 가져오는 설정 **/
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+
+                        // Log and use the token as needed
+                        Log.d(TAG, token);
+                    }
+                });
 
         /** 인터넷 사용 설정 **/
         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()
@@ -159,7 +181,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Retrofit 객체 생성
         Retrofit.Builder builder3 = new Retrofit.Builder()
-                .baseUrl("https://adc4-116-47-197-38.ngrok-free.app")
+                .baseUrl("https://210a-59-24-142-229.ngrok-free.app")
                 .addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit3 = builder3.build();
 

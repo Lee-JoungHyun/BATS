@@ -189,6 +189,8 @@ public class PersonalMain extends AppCompatActivity {
                     notificationManager.cancel(0);
                     flag = false;
                 }
+            //여기다가 추가
+
             }
         });
 
