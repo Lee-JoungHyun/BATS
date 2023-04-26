@@ -15,27 +15,28 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
+            android:background="#F5F5DC"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.7"
                 android:text="back"
-                android:textColor="#0000FF"
-                android:textSize="20dp" />
+                android:textColor="@color/bg"
+                android:textSize="30dp" />
 
             <TextView
                 android:id="@+id/signup"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:layout_weight="2"
+                android:layout_marginBottom="10dp"
                 android:text="회원 가입"
-                android:textColor="#0000FF"
+                android:layout_marginLeft="140dp"
+                android:textColor="@color/bg"
                 android:textSize="25dp" />
         </LinearLayout>
 
@@ -57,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:text="이름"
-                    android:textColor="#0000FF"
+                    android:textColor="#F5F5DC"
                     android:textSize="20dp"
                     android:textStyle="bold"
                     />
@@ -66,6 +67,7 @@
                     android:id="@+id/signName"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
+                    android:background="@drawable/values2"
                     android:layout_marginBottom="20dp"
                     android:ems="10"
                     android:hint=" 이름"
@@ -78,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:text="아이디"
-                    android:textColor="#0000FF"
+                    android:textColor="#F5F5DC"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
@@ -91,6 +93,7 @@
                     android:id="@+id/signID"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
+                    android:background="@drawable/values2"
                     android:layout_marginBottom="20dp"
                     android:ems="10"
                     android:hint=" 아이디"
@@ -106,7 +109,7 @@
                         android:id="@+id/IDcheckbutton"
                         android:layout_width="100dp"
                         android:layout_height="40dp"
-                        android:background="@color/bg"
+                        android:background="@drawable/values3"
                         android:text="중복확인"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -120,7 +123,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:text="비밀번호"
-                    android:textColor="#0000FF"
+                    android:textColor="#F5F5DC"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
@@ -129,6 +132,7 @@
                     android:id="@+id/signPW"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
+                    android:background="@drawable/values2"
                     android:layout_marginBottom="20dp"
                     android:ems="10"
                     android:hint=" 비밀번호"
@@ -141,7 +145,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:text="비밀번호 확인"
-                    android:textColor="#0000FF"
+                    android:textColor="#F5F5DC"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
@@ -155,6 +159,7 @@
                         android:id="@+id/signPW2"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
+                        android:background="@drawable/values2"
                         android:layout_marginBottom="20dp"
                         android:ems="10"
                         android:hint=" 비밀번호 다시 입력"
@@ -176,7 +181,7 @@
                         android:layout_width="100dp"
                         android:layout_height="40dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@color/bg"
+                        android:background="@drawable/values3"
                         android:text="확인"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -192,7 +197,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:text="API Access Key 값"
-                    android:textColor="#0000FF"
+                    android:textColor="#F5F5DC"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
@@ -205,6 +210,7 @@
                         android:id="@+id/signBirth"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
+                        android:background="@drawable/values2"
                         android:layout_marginBottom="20dp"
                         android:layout_marginRight="10dp"
                         android:ems="10"
@@ -221,7 +227,7 @@
                         android:layout_height="40dp"
                         android:layout_marginBottom="20dp"
                         android:text="이메일"
-                        android:textColor="#0000FF"
+                        android:textColor="#F5F5DC"
                         android:textSize="20dp"
                         android:textStyle="bold" />
                 <LinearLayout
@@ -233,6 +239,7 @@
                         android:id="@+id/signmail"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
+                        android:background="@drawable/values2"
                         android:layout_marginBottom="20dp"
                         android:ems="10"
                         android:hint=" 이메일"
@@ -248,7 +255,7 @@
                         android:layout_width="120dp"
                         android:layout_height="40dp"
                         android:layout_marginLeft="10dp"
-                        android:background="@color/bg"
+                        android:background="@drawable/values3"
                         android:text="이메일 인증"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -263,7 +270,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="5dp"
                     android:text="전화번호"
-                    android:textColor="#0000FF"
+                    android:textColor="#F5F5DC"
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
@@ -271,6 +278,7 @@
                     android:id="@+id/signPnum"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
+                    android:background="@drawable/values2"
                     android:layout_marginBottom="20dp"
                     android:ems="10"
                     android:hint="- 없이 입력"
@@ -284,7 +292,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center"
                 android:text="회원가입"
-                android:background="@color/bg"
+                android:background="@drawable/values3"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />
