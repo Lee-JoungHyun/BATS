@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
+    android:background="@color/bg"
     >
 
 
@@ -106,7 +106,7 @@
                         android:id="@+id/IDcheckbutton"
                         android:layout_width="100dp"
                         android:layout_height="40dp"
-                        android:backgroundTint="#0000FF"
+                        android:background="@color/bg"
                         android:text="중복확인"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -176,7 +176,7 @@
                         android:layout_width="100dp"
                         android:layout_height="40dp"
                         android:layout_marginLeft="10dp"
-                        android:backgroundTint="#0000FF"
+                        android:background="@color/bg"
                         android:text="확인"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -248,7 +248,7 @@
                         android:layout_width="120dp"
                         android:layout_height="40dp"
                         android:layout_marginLeft="10dp"
-                        android:backgroundTint="#0000FF"
+                        android:background="@color/bg"
                         android:text="이메일 인증"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -284,7 +284,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_gravity="center"
                 android:text="회원가입"
-                android:backgroundTint="#0000FF"
+                android:background="@color/bg"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:textStyle="bold" />

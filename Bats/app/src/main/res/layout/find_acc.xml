@@ -9,10 +9,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:background="@color/bg"="@color/bg"
         tools:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
+            android:background="@color/bg"="@color/bg"
             android:layout_height="60dp">
             <TextView
                 android:layout_width="match_parent"
@@ -38,7 +40,7 @@
                 android:id="@+id/layout_id"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
+                android:background="@color/bg"="@color/bg"
                 android:orientation="vertical">
 
                 <ImageView
@@ -100,7 +102,7 @@
                             android:layout_height="40dp"
                             android:layout_gravity="center"
                             android:layout_marginBottom="10dp"
-                            android:background="#0000FF"
+                            android:background="@color/bg"="@color/bg"
                             android:visibility="invisible"
                             android:text="인증번호 확인"
                             android:textColor="@color/white"
@@ -118,7 +120,7 @@
                         android:layout_height="40dp"
                         android:layout_gravity="center"
                         android:layout_marginBottom="10dp"
-                        android:background="#0000FF"
+                        android:background="@color/bg"="@color/bg"
                         android:text="이메일 인증"
                         android:textColor="@color/white"
                         android:textSize="16sp"
@@ -133,7 +135,7 @@
                 android:id="@+id/layout_pw"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
+                android:background="@color/bg"="@color/bg"
                 android:orientation="vertical">
 
                 <ImageView
@@ -207,7 +209,7 @@
                             android:layout_height="40dp"
                             android:layout_marginBottom="10dp"
                             android:layout_gravity="center"
-                            android:background="#0000FF"
+                            android:background="@color/bg"="@color/bg"
                             android:visibility="invisible"
                             android:text="인증번호 확인"
                             android:textColor="@color/white"
@@ -226,7 +228,7 @@
                         android:layout_height="40dp"
                         android:layout_marginBottom="10dp"
                         android:layout_gravity="center"
-                        android:background="#0000FF"
+                        android:background="@color/bg"="@color/bg"
                         android:text="이메일 인증"
                         android:textColor="@color/white"
                         android:textSize="16sp"
