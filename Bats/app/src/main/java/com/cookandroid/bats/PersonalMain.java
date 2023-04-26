@@ -28,6 +28,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.github.mikephil.charting.charts.CandleStickChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
@@ -101,7 +102,7 @@ public class PersonalMain extends AppCompatActivity {
                 tmp.add(candleList.get(i));
             }
 
-            CandleDataSet candleDataSet = new CandleDataSet(tmp, "BTC markets");
+            CandleDataSet candleDataSet = new CandleDataSet(tmp, "");
             //candleDataSet.setColor();
             candleDataSet.setAxisDependency(YAxis.AxisDependency.LEFT);
             candleDataSet.setShadowColor(Color.BLACK);
@@ -111,6 +112,9 @@ public class PersonalMain extends AppCompatActivity {
             candleDataSet.setIncreasingPaintStyle(Paint.Style.FILL);
             candleDataSet.setIncreasingColor(Color.RED);
             candleDataSet.setNeutralColor(Color.BLACK);
+            candleDataSet.setValueTextColor(Color.WHITE);
+            //candleDataSet.setLabelTextColor(candleEntries, Color.WHITE);
+
 
             CandleData candleData = new CandleData(candleDataSet);
             candleStickChart.setData(candleData);
@@ -130,6 +134,20 @@ public class PersonalMain extends AppCompatActivity {
         showlog = (Button) findViewById(R.id.btn_log);
         logOut = (Button) findViewById(R.id.logOut);
         flag = false;
+        Description description = new Description();
+
+        description.setText("BTC Price");
+        description.setTextColor(Color.WHITE);
+        //1a2436
+        candleStickChart.setGridBackgroundColor(Color.WHITE);
+        candleStickChart.setBackgroundColor(Color.parseColor("#000033"));
+        candleStickChart.setDescription(description);
+        YAxis leftAxis = candleStickChart.getAxisLeft();
+        YAxis rightAxis = candleStickChart.getAxisRight();
+        XAxis axis = candleStickChart.getXAxis();
+        axis.setTextColor(Color.WHITE);
+        rightAxis.setTextColor(Color.WHITE);
+        leftAxis.setTextColor(Color.WHITE);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
