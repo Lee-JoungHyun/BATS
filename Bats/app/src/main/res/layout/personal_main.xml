@@ -99,12 +99,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/bg"
-        android:orientation="vertical">>
+        android:orientation="vertical">
         <Button
             android:id="@+id/logOut"
             android:layout_width="80dp"
             android:layout_height="33dp"
             android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/values3"
             android:text="로그 아웃"></Button>
     </LinearLayout>
 
