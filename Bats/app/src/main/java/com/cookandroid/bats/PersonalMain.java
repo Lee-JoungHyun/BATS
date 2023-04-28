@@ -158,5 +158,4 @@ public class PersonalMain extends AppCompatActivity {
             }
         })).start();
     } //Timer 실행
-
 }

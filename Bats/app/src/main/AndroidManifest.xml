@@ -23,6 +23,12 @@
         <activity android:name=".PersonalMain"></activity>
         <activity android:name=".FindAccount"></activity>
         <activity android:name=".ShowLogPopup" android:theme="@android:style/Theme.Dialog"></activity>
+        <service android:name=".MyFirebaseMessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
     </application>
 
 
