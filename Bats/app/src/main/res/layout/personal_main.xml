@@ -2,18 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/bg">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:orientation="vertical">
 
         <com.github.mikephil.charting.charts.CandleStickChart
             android:id="@+id/CandleChart"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/bg"
 
             ></com.github.mikephil.charting.charts.CandleStickChart>
     </LinearLayout>
@@ -21,17 +24,18 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:background="@color/bg"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/btn_log"
             android:layout_marginTop="30dp"
-            android:layout_width="500dp"
+            android:layout_width="350dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:backgroundTint="#FFFFFF"
+            android:background="@drawable/personermainbutton"
             android:text="22/11/17/03:00 - 2.331(ETC)매수[22,736,000]"
-            android:textColor="#000000"></Button>
+            android:textColor="#FFFFFF"></Button>
             <!--
             android:text="매매 기록"
             -->
@@ -42,15 +46,16 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:background="@color/bg"
         android:orientation="vertical">
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="20dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textSize="15dp"
             android:text="현재보유(KRW) : 10,143"
-            android:textColor="#000000">
+            android:textColor="#FFFFFF">
         </TextView>
 
 
@@ -62,26 +67,47 @@
             android:textSize="30dp"
             android:text="수익률 = 0.03%"
             android:textColor="#ff0000"></TextView>
-
-
-
-
     </LinearLayout>
 
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="80dp"
+        android:background="@color/bg"
         android:orientation="vertical">
 
-        <Button
+        <com.github.angads25.toggle.widget.LabeledSwitch
             android:id="@+id/onBtn"
-            android:layout_width="130dp"
-            android:layout_height="66dp"
+            android:layout_width="120dp"
+            android:layout_height="55dp"
             android:layout_gravity="center"
-            android:text="매매 시작"></Button>
+            android:layout_margin="16dp"
+            android:textSize="14sp"
 
+            app:colorOn="#33DD33"
+            app:colorOff="#000033"
+            app:colorBorder="#33DD33"
+            app:on="false"
+            app:textOff="Stop"
+            app:textOn="Run"></com.github.angads25.toggle.widget.LabeledSwitch>
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg"
+        android:orientation="vertical">
+        <Button
+            android:id="@+id/logOut"
+            android:layout_width="80dp"
+            android:layout_height="33dp"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/values3"
+            android:text="로그 아웃"></Button>
     </LinearLayout>
 
 
