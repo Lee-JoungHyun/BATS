@@ -10,12 +10,27 @@ import android.widget.EditText;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
+
 public class SignUp extends AppCompatActivity {
     EditText Name,Id,Pw,rPw,Key,Pn,Email;
     Button IdCheck,PwCheck,EmailCheck,SignUp;
     protected void onCreate(Bundle savedInstanceState) {
+        /** 통신 설정 초기화(baseurl 항상 바꿔줘야함!!!) **/
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl("http://www.example.com/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        IdAPI id_api = retrofit.create(IdAPI.class);
+        /** **/
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
+
         /** EditText **/
         Name = (EditText)findViewById(R.id.signName);
         Id = (EditText)findViewById(R.id.signID);
@@ -37,6 +52,20 @@ public class SignUp extends AppCompatActivity {
                 /** 대충 서버에 값을 보내서 이미 있는 아이디면, 안된다는 대답을
                  * 없으면 된다는 대답을 보내는 처리
                  */
+                String data = Id.getText().toString();
+                Call<Void> call = id_api.sendData(data);
+
+                call.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        // 전송 성공시 처리할 코드
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        // 전송 실패시 처리할 코드
+                    }
+                });
             }
         });
         /** 비밀번호 확인 버튼 **/
@@ -46,9 +75,9 @@ public class SignUp extends AppCompatActivity {
             public void onClick(View view) {
                 pw = Pw.getText().toString();
                 rpw = rPw.getText().toString();
+                AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.getContext());
                 /** 서로 다르다면 **/
-                if(pw != rpw){
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                if(!pw.equals(rpw)){
                     builder.setMessage("비밀번호가 서로 다릅니다.");
                     builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                         @Override
@@ -63,7 +92,6 @@ public class SignUp extends AppCompatActivity {
                 }
                 /** 같다면 **/
                 else{
-                    AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
                     builder.setMessage("비밀번호 사용가능!");
                     builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                         @Override
