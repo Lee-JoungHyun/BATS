@@ -9,6 +9,9 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 
 public interface IdAPI {
-    @POST("sign_up/id_check")
-    Call<Void> sendData(@Body String data);
+    @Multipart
+    @POST("/users/sign_up/id_check/")
+    Call<ResponseBody> id_check(
+            @Part("id") RequestBody param1
+    );
 }
