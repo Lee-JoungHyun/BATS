@@ -20,17 +20,13 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class SignUp extends AppCompatActivity {
+    /** 위젯 변수 **/
     EditText Name,Id,Pw,rPw,Key,Pn,Email;
     Button IdCheck,PwCheck,EmailCheck,SignUp;
-    protected void onCreate(Bundle savedInstanceState) {
-        /** 통신 설정 초기화(baseurl 항상 바꿔줘야함!!!) **/
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://bb08-116-47-197-38.ngrok-free.app")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
+    /** 필드 **/
+    String BaseUrl = "https://f00d-155-230-84-120.ngrok-free.app";
 
-        IdAPI id_api = retrofit.create(IdAPI.class);
-        /** **/
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.signup);
 
@@ -52,13 +48,13 @@ public class SignUp extends AppCompatActivity {
         IdCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /** 대충 서버에 값을 보내서 이미 있는 아이디면, 안된다는 대답을
+                /** 서버에 값을 보내서 이미 있는 아이디면, 안된다는 대답을
                  * 없으면 된다는 대답을 보내는 처리
                  */
                 RequestBody id_check = RequestBody.create(MediaType.parse("text/plain"),Id.getText().toString());
                 AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.getContext());
                 Retrofit.Builder builder3 = new Retrofit.Builder()
-                        .baseUrl("https://bb08-116-47-197-38.ngrok-free.app")
+                        .baseUrl(BaseUrl)
                         .addConverterFactory(GsonConverterFactory.create());
                 Retrofit retrofit3 = builder3.build();
                 IdAPI id_api = retrofit3.create(IdAPI.class);
@@ -149,8 +145,67 @@ public class SignUp extends AppCompatActivity {
         SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                /** 각 Emulator의 FCM 토큰 **/
+                String token = getIntent().getStringExtra("token");
+                /** 보낼 데이터 종류 **/
+                RequestBody[] requestBodyArray = {
+                        RequestBody.create(MediaType.parse("text/plain"), Name.getText().toString()),
+                        RequestBody.create(MediaType.parse("text/plain"), Id.getText().toString()),
+                        RequestBody.create(MediaType.parse("text/plain"), Pw.getText().toString()),
+                        RequestBody.create(MediaType.parse("text/plain"), Key.getText().toString()),
+                        RequestBody.create(MediaType.parse("text/plain"), Email.getText().toString()),
+                        RequestBody.create(MediaType.parse("text/plain"), Pn.getText().toString()),
+                        RequestBody.create(MediaType.parse("text/plain"), token)
+                };
+                /** 서버로 데이터 전송하는 코드 **/
+                AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.getContext());
+                Retrofit.Builder builder3 = new Retrofit.Builder()
+                        .baseUrl(BaseUrl)
+                        .addConverterFactory(GsonConverterFactory.create());
+                Retrofit retrofit3 = builder3.build();
+                SignUpAPI sign_api = retrofit3.create(SignUpAPI.class);
+                Call<ResponseBody> call = sign_api.sign_up(requestBodyArray[0],requestBodyArray[1],
+                        requestBodyArray[2],requestBodyArray[3],requestBodyArray[4],
+                        requestBodyArray[5],requestBodyArray[6]);
+                call.enqueue(new Callback<ResponseBody>(){
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        // 전송 성공시 처리할 코드
+                        int status_code = response.code();
+                        if(status_code == 200){
+                            builder.setMessage("회원가입 완료!");
+                            builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Do something when the OK button is clicked
+                                    /** 대충 확인 누르면 다시 로그인 화면으로 돌아감 **/
+                                }
+                            });
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        }
+                        else if(status_code == 400){
+                            builder.setMessage("회원가입 실패! 이메일 입력란 오류");
+                            builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Do something when the OK button is clicked
+                                    Key.setText("");
+                                    Email.setText("");
+                                    Pn.setText("");
+                                }
+                            });
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        }
+                    }
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        // 전송 실패시 처리할 코드
+                    }
+                });
             }
         });
+        /** **/
     }
 }

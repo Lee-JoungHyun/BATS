@@ -42,17 +42,18 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
-
+    /** 위젯 변수 **/
     Button SignUp, Login, FindAcc;
     EditText ID, PW;
     CheckBox autologin;
+    /** 필드 **/
     String info;
-
+    String token;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        /** 위젯 변수 초기화 **/
         SignUp = (Button) findViewById(R.id.btn_signup);
         Login = (Button) findViewById(R.id.btn_login);
         FindAcc = (Button) findViewById(R.id.btn_find);
@@ -70,10 +71,10 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                         // Get new FCM registration token
-                        String token = task.getResult();
-
+                        String tk = task.getResult();
+                        token = tk;
                         // Log and use the token as needed
-                        Log.d(TAG, token);
+                        Log.d(TAG, tk+":This is a token!");
                     }
                 });
 
@@ -106,14 +107,16 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
+        /** 회원 가입 창 **/
         SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SignUp.class);
+                intent.putExtra("token",token);
                 startActivity(intent);
             }
         });
+        /** **/
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
