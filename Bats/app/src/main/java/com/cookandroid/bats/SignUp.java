@@ -10,6 +10,9 @@ import android.widget.EditText;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -22,7 +25,7 @@ public class SignUp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         /** 통신 설정 초기화(baseurl 항상 바꿔줘야함!!!) **/
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("http://www.example.com/")
+                .baseUrl("https://bb08-116-47-197-38.ngrok-free.app")
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
@@ -52,17 +55,45 @@ public class SignUp extends AppCompatActivity {
                 /** 대충 서버에 값을 보내서 이미 있는 아이디면, 안된다는 대답을
                  * 없으면 된다는 대답을 보내는 처리
                  */
-                String data = Id.getText().toString();
-                Call<Void> call = id_api.sendData(data);
-
-                call.enqueue(new Callback<Void>() {
+                RequestBody id_check = RequestBody.create(MediaType.parse("text/plain"),Id.getText().toString());
+                AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.getContext());
+                Retrofit.Builder builder3 = new Retrofit.Builder()
+                        .baseUrl("https://bb08-116-47-197-38.ngrok-free.app")
+                        .addConverterFactory(GsonConverterFactory.create());
+                Retrofit retrofit3 = builder3.build();
+                IdAPI id_api = retrofit3.create(IdAPI.class);
+                Call<ResponseBody> call = id_api.id_check(id_check);
+                call.enqueue(new Callback<ResponseBody>(){
                     @Override
-                    public void onResponse(Call<Void> call, Response<Void> response) {
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         // 전송 성공시 처리할 코드
+                        int status_code = response.code();
+                        if(status_code == 200){
+                            builder.setMessage("사용 가능한 아이디입니다!");
+                            builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Do something when the OK button is clicked
+                                }
+                            });
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        }
+                        else if(status_code == 400){
+                            builder.setMessage("이미 있는 아이디입니다!");
+                            builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    // Do something when the OK button is clicked
+                                    Id.setText("");
+                                }
+                            });
+                            AlertDialog dialog = builder.create();
+                            dialog.show();
+                        }
                     }
-
                     @Override
-                    public void onFailure(Call<Void> call, Throwable t) {
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
                         // 전송 실패시 처리할 코드
                     }
                 });
