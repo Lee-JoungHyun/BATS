@@ -184,7 +184,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Retrofit 객체 생성
         Retrofit.Builder builder3 = new Retrofit.Builder()
-                .baseUrl("https://7a7c-155-230-84-193.ngrok-free.app/")
+                .baseUrl("https://63bb-116-47-197-38.ngrok-free.app/")
                 .addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit3 = builder3.build();
 

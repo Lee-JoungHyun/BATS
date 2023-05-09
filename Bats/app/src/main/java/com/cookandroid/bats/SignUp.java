@@ -24,7 +24,7 @@ public class SignUp extends AppCompatActivity {
     EditText Name,Id,Pw,rPw,Key,Pn,Email;
     Button IdCheck,PwCheck,EmailCheck,SignUp;
     /** 필드 **/
-    String BaseUrl = "https://f00d-155-230-84-120.ngrok-free.app";
+    String BaseUrl = "https://63bb-116-47-197-38.ngrok-free.app";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
