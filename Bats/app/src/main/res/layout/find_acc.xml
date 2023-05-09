@@ -10,12 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:background="@color/bg"
+        android:background="@drawable/border_notbottom"
         tools:visibility="visible">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:background="@color/bg"
+            android:background="@drawable/border"
             android:layout_height="60dp">
             <TextView
                 android:layout_width="match_parent"
@@ -23,7 +23,7 @@
                 android:gravity="center"
                 android:text="ID / PW 찾기"
                 android:layout_weight="2"
-                android:textColor="#0000FF"
+                android:textColor="#000000"
                 android:textSize="25dp"></TextView>
         </LinearLayout>
 
@@ -41,14 +41,14 @@
                 android:id="@+id/layout_id"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/bg"
+                android:background="@drawable/border_nottop"
                 android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:src="@drawable/findacclogo"></ImageView>
 
 
@@ -99,7 +99,7 @@
 
                         <Button
                             android:id="@+id/id_btn_check"
-                            android:layout_width="148dp"
+                            android:layout_width="120dp"
                             android:layout_height="40dp"
                             android:layout_gravity="center"
                             android:layout_marginBottom="10dp"
@@ -118,7 +118,7 @@
                     <Button
                         android:id="@+id/id_btnEmail"
                         android:layout_width="120dp"
-                        android:layout_height="40dp"
+                        android:layout_height="50dp"
                         android:layout_gravity="center"
                         android:layout_marginBottom="10dp"
                         android:background="@color/bg"
@@ -136,14 +136,14 @@
                 android:id="@+id/layout_pw"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/bg"
+                android:background="@drawable/border_nottop"
                 android:orientation="vertical">
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:layout_gravity="center"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="20dp"
                     android:src="@drawable/findacclogo"></ImageView>
 
                 <LinearLayout
@@ -226,7 +226,7 @@
                     <Button
                         android:id="@+id/pw_btnEmail"
                         android:layout_width="120dp"
-                        android:layout_height="40dp"
+                        android:layout_height="50dp"
                         android:layout_marginBottom="10dp"
                         android:layout_gravity="center"
                         android:background="@color/bg"

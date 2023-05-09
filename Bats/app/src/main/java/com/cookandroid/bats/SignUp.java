@@ -97,14 +97,17 @@ public class SignUp extends AppCompatActivity {
         });
         /** 비밀번호 확인 버튼 **/
         PwCheck.setOnClickListener(new View.OnClickListener() {
-            String pw,rpw;
+            String pw = "",rpw = "";
             @Override
             public void onClick(View view) {
                 pw = Pw.getText().toString();
                 rpw = rPw.getText().toString();
-                AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.getContext());
+                //AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.getContext());
                 /** 서로 다르다면 **/
                 if(!pw.equals(rpw)){
+
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.getContext());
+
                     builder.setMessage("비밀번호가 서로 다릅니다.");
                     builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                         @Override
@@ -119,6 +122,8 @@ public class SignUp extends AppCompatActivity {
                 }
                 /** 같다면 **/
                 else{
+                    AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.getContext());
+
                     builder.setMessage("비밀번호 사용가능!");
                     builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                         @Override
