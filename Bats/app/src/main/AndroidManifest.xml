@@ -34,7 +34,9 @@
         <activity android:name=".FindAccount"></activity>
         <activity android:name=".ShowLogPopup" android:theme="@android:style/Theme.Dialog"></activity>
         <service
-            android:name=".MyFirebaseMessagingService">
+            android:name=".MyFirebaseMessagingService"
+            android:exported="true">
+
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
