@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     /** 필드 **/
     String info;
     String token;
+    String BaseUrl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +61,9 @@ public class MainActivity extends AppCompatActivity {
         ID = (EditText) findViewById(R.id.edit_id);
         PW = (EditText) findViewById(R.id.edit_pw);
         autologin = (CheckBox) findViewById(R.id.cbox_autologin);
+        /** 필드 초기화 **/
+        BaseUrl = "https://209c-59-24-142-229.ngrok-free.app";
+
         /** 등록 토큰을 가져오는 설정 **/
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(new OnCompleteListener<String>() {
@@ -113,6 +117,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), SignUp.class);
                 intent.putExtra("token",token);
+                intent.putExtra("url",BaseUrl);
                 startActivity(intent);
             }
         });
@@ -184,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Retrofit 객체 생성
         Retrofit.Builder builder3 = new Retrofit.Builder()
-                .baseUrl("https://63bb-116-47-197-38.ngrok-free.app/")
+                .baseUrl(BaseUrl)
                 .addConverterFactory(GsonConverterFactory.create());
         Retrofit retrofit3 = builder3.build();
 

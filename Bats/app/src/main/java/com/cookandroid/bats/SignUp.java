@@ -24,7 +24,6 @@ public class SignUp extends AppCompatActivity {
     EditText Name,Id,Pw,rPw,Key,Pn,Email;
     Button IdCheck,PwCheck,EmailCheck,SignUp;
     /** 필드 **/
-    String BaseUrl = "https://63bb-116-47-197-38.ngrok-free.app";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,7 +42,8 @@ public class SignUp extends AppCompatActivity {
         PwCheck = (Button)findViewById(R.id.pwcheckbutton);
         EmailCheck = (Button) findViewById(R.id.Emailcheckbutton);
         SignUp = (Button)findViewById(R.id.signupbutton);
-
+        /** Url 받아오기 **/
+        String Url = getIntent().getStringExtra("url");
         /** 아이디 중복 확인 버튼 **/
         IdCheck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,7 +54,7 @@ public class SignUp extends AppCompatActivity {
                 RequestBody id_check = RequestBody.create(MediaType.parse("text/plain"),Id.getText().toString());
                 AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.getContext());
                 Retrofit.Builder builder3 = new Retrofit.Builder()
-                        .baseUrl(BaseUrl)
+                        .baseUrl(Url)
                         .addConverterFactory(GsonConverterFactory.create());
                 Retrofit retrofit3 = builder3.build();
                 IdAPI id_api = retrofit3.create(IdAPI.class);
@@ -165,7 +165,7 @@ public class SignUp extends AppCompatActivity {
                 /** 서버로 데이터 전송하는 코드 **/
                 AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.getContext());
                 Retrofit.Builder builder3 = new Retrofit.Builder()
-                        .baseUrl(BaseUrl)
+                        .baseUrl(Url)
                         .addConverterFactory(GsonConverterFactory.create());
                 Retrofit retrofit3 = builder3.build();
                 SignUpAPI sign_api = retrofit3.create(SignUpAPI.class);
