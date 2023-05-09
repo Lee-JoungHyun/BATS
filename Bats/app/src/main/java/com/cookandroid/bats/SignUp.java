@@ -102,7 +102,7 @@ public class SignUp extends AppCompatActivity {
             public void onClick(View view) {
                 pw = Pw.getText().toString();
                 rpw = rPw.getText().toString();
-                AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.getContext());
+                //AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.getContext());
                 /** 서로 다르다면 **/
                 if(!pw.equals(rpw)){
 
