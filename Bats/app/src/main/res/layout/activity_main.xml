@@ -61,7 +61,7 @@
         android:layout_width="120dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:background="@color/bg"
+        android:background="@drawable/values3_2"
         android:textColor="@color/white"
         android:text="로그인"></Button>
     <LinearLayout
