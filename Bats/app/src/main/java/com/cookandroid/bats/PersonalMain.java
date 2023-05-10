@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -172,6 +173,12 @@ public class PersonalMain extends AppCompatActivity {
         rightAxis.setTextColor(Color.WHITE);
         leftAxis.setTextColor(Color.WHITE);
 
+// Notification 이벤트
+        //Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
+        //PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+// Notification 생성
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
             NotificationChannel notificationChannel =
@@ -191,7 +198,9 @@ public class PersonalMain extends AppCompatActivity {
                 .setContentText("+0.03%")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setOngoing(true)
+                //.setContentIntent(pendingIntent)
                 .build();
+
         final NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
 
