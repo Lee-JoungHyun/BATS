@@ -42,8 +42,7 @@ public class SignUp extends AppCompatActivity {
         PwCheck = (Button)findViewById(R.id.pwcheckbutton);
         EmailCheck = (Button) findViewById(R.id.Emailcheckbutton);
         SignUp = (Button)findViewById(R.id.signupbutton);
-        /** Url 받아오기 **/
-        String Url = getIntent().getStringExtra("url");
+
         /** 아이디 중복 확인 버튼 **/
         IdCheck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,6 +50,8 @@ public class SignUp extends AppCompatActivity {
                 /** 서버에 값을 보내서 이미 있는 아이디면, 안된다는 대답을
                  * 없으면 된다는 대답을 보내는 처리
                  */
+                /** Url 받아오기 **/
+                String Url = getIntent().getStringExtra("url");
                 RequestBody id_check = RequestBody.create(MediaType.parse("text/plain"),Id.getText().toString());
                 AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.getContext());
                 Retrofit.Builder builder3 = new Retrofit.Builder()
@@ -162,6 +163,8 @@ public class SignUp extends AppCompatActivity {
                         RequestBody.create(MediaType.parse("text/plain"), Pn.getText().toString()),
                         RequestBody.create(MediaType.parse("text/plain"), token)
                 };
+                /** Url 받아오기 **/
+                String Url = getIntent().getStringExtra("url");
                 /** 서버로 데이터 전송하는 코드 **/
                 AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.getContext());
                 Retrofit.Builder builder3 = new Retrofit.Builder()

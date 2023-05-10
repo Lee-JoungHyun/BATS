@@ -1,10 +1,12 @@
 package com.cookandroid.bats;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -51,6 +53,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PersonalMain extends AppCompatActivity {
 
@@ -210,6 +220,51 @@ public class PersonalMain extends AppCompatActivity {
                     notificationManager.notify(0, noti);
                     Toast toast = Toast.makeText(getApplicationContext(), "On.",Toast.LENGTH_SHORT);
                     toast.show();
+
+/** 여기다가 서버에 요청 하는 코드 **/
+                    String Url = getIntent().getStringExtra("url");
+                    String id = getIntent().getStringExtra("id");
+                    RequestBody id_check = RequestBody.create(MediaType.parse("text/plain"),id);
+                    AlertDialog.Builder builder = new AlertDialog.Builder(labeledSwitch.getContext());
+                    Retrofit.Builder builder3 = new Retrofit.Builder()
+                            .baseUrl(Url)
+                            .addConverterFactory(GsonConverterFactory.create());
+                    Retrofit retrofit3 = builder3.build();
+                    IdAPI id_api = retrofit3.create(IdAPI.class);
+                    Call<ResponseBody> call = id_api.id_check(id_check);
+                    call.enqueue(new Callback<ResponseBody>(){
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+                            // 전송 성공시 처리할 코드
+                            int status_code = response.code();
+                            if(status_code == 200){
+                                builder.setMessage("거래가 시작되었습니다!");
+                                builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // Do something when the OK button is clicked
+                                    }
+                                });
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            }
+                            else if(status_code == 400){
+                                builder.setMessage("요청이 실패했습니다!");
+                                builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // Do something when the OK button is clicked
+                                    }
+                                });
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            // 전송 실패시 처리할 코드
+                        }
+                    });
                 }else{
                     notificationManager.cancel(0);
                     Toast toast = Toast.makeText(getApplicationContext(), "Off.",Toast.LENGTH_SHORT);

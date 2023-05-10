@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         PW = (EditText) findViewById(R.id.edit_pw);
         autologin = (CheckBox) findViewById(R.id.cbox_autologin);
         /** 필드 초기화 **/
-        BaseUrl = "https://209c-59-24-142-229.ngrok-free.app";
+        BaseUrl = "https://70a9-2001-2d8-697b-acc6-e5a5-eedb-c805-4970.ngrok-free.app";
 
         /** 등록 토큰을 가져오는 설정 **/
         FirebaseMessaging.getInstance().getToken()
@@ -208,6 +208,8 @@ public class MainActivity extends AppCompatActivity {
 //                     로그인. Main Activity2 를 호출한다. (갤러리와 이미지 처리 버튼이 나오는 부분이다)
 //                     text view 내의 값들이 db에 있는 경우
                     Intent intent = new Intent(getApplicationContext(), PersonalMain.class);
+                    intent.putExtra("url",BaseUrl);
+                    intent.putExtra("id",userId);
                     ResponseBody body = response.body();
                     try{
                         info = body.string();
