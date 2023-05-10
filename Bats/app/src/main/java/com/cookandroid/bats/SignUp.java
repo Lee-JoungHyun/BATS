@@ -22,7 +22,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SignUp extends AppCompatActivity {
     /** 위젯 변수 **/
     EditText Name,Id,Pw,rPw,Key,Pn,Email;
-    Button IdCheck,PwCheck,EmailCheck,SignUp;
+    Button IdCheck,PwCheck,EmailCheck,SignUp, back;
     /** 필드 **/
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,7 @@ public class SignUp extends AppCompatActivity {
         PwCheck = (Button)findViewById(R.id.pwcheckbutton);
         EmailCheck = (Button) findViewById(R.id.Emailcheckbutton);
         SignUp = (Button)findViewById(R.id.signupbutton);
+        back = (Button)findViewById(R.id.back);
 
         /** 아이디 중복 확인 버튼 **/
         IdCheck.setOnClickListener(new View.OnClickListener() {
@@ -147,6 +148,13 @@ public class SignUp extends AppCompatActivity {
 
             }
         });
+        /** Back 버튼 **/
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         /** 회원가입 버튼 **/
         SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -185,6 +193,7 @@ public class SignUp extends AppCompatActivity {
                             builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    finish();
                                     // Do something when the OK button is clicked
                                     /** 대충 확인 누르면 다시 로그인 화면으로 돌아감 **/
                                 }

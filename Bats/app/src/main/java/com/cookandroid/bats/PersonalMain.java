@@ -79,6 +79,12 @@ public class PersonalMain extends AppCompatActivity {
             drawChart();
         }
     };
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+    }
+
     private void drawChart() {
         candleList.clear();
         String url = "https://api.upbit.com/v1/candles/minutes/1?market=KRW-BTC&count=15";
@@ -187,6 +193,8 @@ public class PersonalMain extends AppCompatActivity {
                 .setOngoing(true)
                 .build();
         final NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+
 
         logOut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -331,6 +339,8 @@ public class PersonalMain extends AppCompatActivity {
                     }
             }
         })).start();
+
+
 
     } //Timer 실행
 
