@@ -9,8 +9,8 @@ import retrofit2.http.Part;
 
 public interface TradeAPI {
     @Multipart
-    @POST("/users/logined/auto_trade/")
-    Call<ResponseBody> id_check(
+    @POST("/users/logined/trade/")
+    Call<ResponseBody> auto_trade(
             @Part("id") RequestBody param1
     );
 }

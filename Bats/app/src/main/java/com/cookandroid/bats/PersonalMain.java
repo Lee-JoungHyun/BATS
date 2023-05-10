@@ -230,8 +230,8 @@ public class PersonalMain extends AppCompatActivity {
                             .baseUrl(Url)
                             .addConverterFactory(GsonConverterFactory.create());
                     Retrofit retrofit3 = builder3.build();
-                    IdAPI id_api = retrofit3.create(IdAPI.class);
-                    Call<ResponseBody> call = id_api.id_check(id_check);
+                    TradeAPI id_api = retrofit3.create(TradeAPI.class);
+                    Call<ResponseBody> call = id_api.auto_trade(id_check);
                     call.enqueue(new Callback<ResponseBody>(){
                         @Override
                         public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
