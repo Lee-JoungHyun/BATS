@@ -6,10 +6,13 @@ import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Build;
@@ -72,6 +75,7 @@ public class PersonalMain extends AppCompatActivity {
     ArrayList<CandleEntry> candleList = new ArrayList();
     private RequestQueue rQ;
     boolean flag;
+    transactionDBHelper mHelper;
 
     Timer timer = new Timer();
     TimerTask TT = new TimerTask() {
@@ -159,6 +163,7 @@ public class PersonalMain extends AppCompatActivity {
         logOut = (Button) findViewById(R.id.logOut);
         flag = false;
         Description description = new Description();
+        mHelper = new transactionDBHelper(this);
 
         description.setText("BTC Price");
         description.setTextColor(Color.WHITE);
@@ -233,10 +238,24 @@ public class PersonalMain extends AppCompatActivity {
         labeledSwitch.setOnToggledListener(new OnToggledListener() {
             @Override
             public void onSwitched(ToggleableView toggleableView, boolean isOn) {
+                // 거래 시작 부분
                 if(isOn){
                     notificationManager.notify(0, noti);
                     Toast toast = Toast.makeText(getApplicationContext(), "On.",Toast.LENGTH_SHORT);
                     toast.show();
+                    /** DB 삭제 후 생성하는 코드 **/
+                    SQLiteDatabase db = null;
+                    try{
+                        deleteDatabase(mHelper.DATABASE_NAME);
+                        db = mHelper.getWritableDatabase();
+
+                    }catch (SQLiteException e){
+
+                    }finally {
+                        if (db != null && db.isOpen()) {
+                            db.close();
+                        }
+                    }
 
 /** 여기다가 서버에 요청 하는 코드 **/
                     String Url = getIntent().getStringExtra("url");
@@ -282,10 +301,12 @@ public class PersonalMain extends AppCompatActivity {
                             // 전송 실패시 처리할 코드
                         }
                     });
+                    // 거래 종료 부분
                 }else{
                     notificationManager.cancel(0);
                     Toast toast = Toast.makeText(getApplicationContext(), "Off.",Toast.LENGTH_SHORT);
                     toast.show();
+                    SQLiteDatabase db = null;
                 }
             }
 
