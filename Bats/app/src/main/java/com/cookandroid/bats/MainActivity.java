@@ -4,17 +4,25 @@ import static android.content.ContentValues.TAG;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.security.keystore.KeyGenParameterSpec;
@@ -62,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
         PW = (EditText) findViewById(R.id.edit_pw);
         autologin = (CheckBox) findViewById(R.id.cbox_autologin);
         /** 필드 초기화 **/
-        BaseUrl = "https://a99b-59-24-142-229.ngrok-free.app";
+
+        BaseUrl = "https://5fe4-59-24-142-229.ngrok-free.app/";
 
         /** 등록 토큰을 가져오는 설정 **/
         FirebaseMessaging.getInstance().getToken()
@@ -89,24 +98,53 @@ public class MainActivity extends AppCompatActivity {
                 .permitNetwork().build());
 
         /** 자동 로그인 저장 되어있을 경우 실행 루트 **/
-        try {
-            MasterKey masterkey = new MasterKey.Builder(getApplicationContext(), MasterKey.DEFAULT_MASTER_KEY_ALIAS)
-                    .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-                    .build();
 
-            SharedPreferences sharedPreferences = EncryptedSharedPreferences
-                    .create(getApplicationContext(),
-                            "autoLogin",
-                            masterkey,
-                            EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                            EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM);
+        if (checkNotification(getApplicationContext()) == false) {
 
-            String text_id = sharedPreferences.getString("userId", null);
-            String text_pw = sharedPreferences.getString("userPw", null);
-            if (text_id != null || text_pw != null)
-                checkAccount(text_id,text_pw);
-        }catch (Exception ex) {
+            AlertDialog.Builder msgBuilder = new AlertDialog.Builder(MainActivity.this)
+                    .setTitle("알람 설정")
+                    .setMessage("알람 설정이 되어있지 않습니다")
+                    .setPositiveButton("권한 설정", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            goNotiSetting();
+                        }
+                    })
+                    .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
 
+                        }
+                    });
+            AlertDialog msgDlg = msgBuilder.create();
+            msgDlg.show();
+
+
+        }
+        else if (checkInternet() == false) {
+            Toast.makeText(getApplicationContext(),"인터넷 연결이 되어있지 않습니다",Toast.LENGTH_SHORT).show();
+        }
+        else {
+
+            try {
+                MasterKey masterkey = new MasterKey.Builder(getApplicationContext(), MasterKey.DEFAULT_MASTER_KEY_ALIAS)
+                        .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+                        .build();
+
+                SharedPreferences sharedPreferences = EncryptedSharedPreferences
+                        .create(getApplicationContext(),
+                                "autoLogin",
+                                masterkey,
+                                EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                                EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM);
+
+                String text_id = sharedPreferences.getString("userId", null);
+                String text_pw = sharedPreferences.getString("userPw", null);
+                if (text_id != null || text_pw != null)
+                    checkAccount(text_id, text_pw);
+            } catch (Exception ex) {
+
+            }
         }
 
 
@@ -125,10 +163,39 @@ public class MainActivity extends AppCompatActivity {
         Login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (checkNotification(getApplicationContext()) == false) {
+                    AlertDialog.Builder msgBuilder = new AlertDialog.Builder(MainActivity.this)
+                            .setTitle("알람 설정")
+                            .setMessage("알람 설정이 되어있지 않습니다")
+                            .setPositiveButton("권한 설정", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    goNotiSetting();
+                                }
+                            })
+                            .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    return;
+                                }
+                            });
+                    AlertDialog msgDlg = msgBuilder.create();
+                    msgDlg.show();
+                    return;
+                }
+                if (checkInternet() == false) {
+                    Toast.makeText(getApplicationContext(),"인터넷 연결이 되어있지 않습니다",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+
+
                 String text_id = ID.getText().toString();
                 String text_pw = PW.getText().toString();
                 /** 자동로그인 실행 시 **/
                 if(autologin.isChecked()) {
+
                     try {
                         MasterKey masterkey = new MasterKey.Builder(getApplicationContext(), MasterKey.DEFAULT_MASTER_KEY_ALIAS)
                                 .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
@@ -150,9 +217,10 @@ public class MainActivity extends AppCompatActivity {
                         spfEditor.putString("userPw", text_pw);
                         spfEditor.commit();
 
-                    }catch (Exception ex) {
+                    } catch (Exception ex) {
 
                     }
+
                 }
 
                 //로그인 정보 미입력 시
@@ -234,4 +302,28 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+    public boolean checkNotification(Context context) {
+        return NotificationManagerCompat.from(context).areNotificationsEnabled();
+    }
+    public boolean checkInternet() {
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isConnected()) {
+            // 연결 On
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public void goNotiSetting() {
+        Intent intent = new Intent();
+        intent.setAction("android.settings.APP_NOTIFICATION_SETTINGS");
+        // 알림 설정으로 이동할 패키지 이름 설정
+        intent.putExtra("android.provider.extra.APP_PACKAGE", getPackageName());
+
+        // 알림 설정 화면 열기
+        startActivity(intent);
+    }
+
 }

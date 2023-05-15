@@ -44,6 +44,7 @@ public class SignUp extends AppCompatActivity {
         PwCheck = (Button)findViewById(R.id.pwcheckbutton);
         EmailCheck = (Button) findViewById(R.id.Emailcheckbutton);
         SignUp = (Button)findViewById(R.id.signupbutton);
+
         /** TextView **/
         Back = (TextView)findViewById(R.id.back);
         /** 뒤로 가기 텍스트 뷰 **/
@@ -68,6 +69,7 @@ public class SignUp extends AppCompatActivity {
                 dialog.show();
             }
         });
+
         /** 아이디 중복 확인 버튼 **/
         IdCheck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -210,6 +212,7 @@ public class SignUp extends AppCompatActivity {
                             builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    finish();
                                     // Do something when the OK button is clicked
                                     /** 대충 확인 누르면 다시 로그인 화면으로 돌아감 **/
                                     finish();

@@ -3,7 +3,10 @@ package com.cookandroid.bats;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.os.Build;
 
@@ -29,10 +32,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 case "0":
                     changeNotification(key2);
                     break;
+                // 거래내역 SQLite 처리
                 case "1":
-
+                    insertSQLite(key2);
                     break;
-
             }
         }
     }
@@ -48,6 +51,24 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         final NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
 
         notificationManager.notify(0, noti);
+    }
+    private void insertSQLite(String tmp) {
+        SQLiteDatabase db = null;
+        try {
+            transactionDBHelper mHelper = new transactionDBHelper(this);
+            db = mHelper.getWritableDatabase();
+
+            ContentValues values = new ContentValues();
+            values.put("recode", tmp);
+            db.insert("transaction", null, values);
+            mHelper.close();
+        }catch (SQLiteException e) {
+        } finally {
+            if(db != null && db.isOpen()) {
+                db.close();
+            }
+        }
+
     }
 }
 
