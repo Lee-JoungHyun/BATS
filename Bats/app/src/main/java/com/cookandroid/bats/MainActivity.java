@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         PW = (EditText) findViewById(R.id.edit_pw);
         autologin = (CheckBox) findViewById(R.id.cbox_autologin);
         /** 필드 초기화 **/
-        BaseUrl = "https://70a9-2001-2d8-697b-acc6-e5a5-eedb-c805-4970.ngrok-free.app";
+        BaseUrl = "https://a99b-59-24-142-229.ngrok-free.app";
 
         /** 등록 토큰을 가져오는 설정 **/
         FirebaseMessaging.getInstance().getToken()

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 
 import androidx.appcompat.app.AlertDialog;
@@ -23,6 +24,7 @@ public class SignUp extends AppCompatActivity {
     /** 위젯 변수 **/
     EditText Name,Id,Pw,rPw,Key,Pn,Email;
     Button IdCheck,PwCheck,EmailCheck,SignUp;
+    TextView Back;
     /** 필드 **/
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,30 @@ public class SignUp extends AppCompatActivity {
         PwCheck = (Button)findViewById(R.id.pwcheckbutton);
         EmailCheck = (Button) findViewById(R.id.Emailcheckbutton);
         SignUp = (Button)findViewById(R.id.signupbutton);
-
+        /** TextView **/
+        Back = (TextView)findViewById(R.id.back);
+        /** 뒤로 가기 텍스트 뷰 **/
+        Back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(SignUp.getContext());
+                builder.setMessage("회원 가입을 취소하겠습니까?");
+                builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                });
+                builder.setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Do something when the Cancel button is clicked
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            }
+        });
         /** 아이디 중복 확인 버튼 **/
         IdCheck.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -187,6 +212,7 @@ public class SignUp extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int which) {
                                     // Do something when the OK button is clicked
                                     /** 대충 확인 누르면 다시 로그인 화면으로 돌아감 **/
+                                    finish();
                                 }
                             });
                             AlertDialog dialog = builder.create();
