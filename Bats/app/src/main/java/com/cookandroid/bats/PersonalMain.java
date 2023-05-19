@@ -67,7 +67,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class PersonalMain extends AppCompatActivity {
-
+    public static Context mContext;
     CandleStickChart candleStickChart;
     Button showlog, logOut;
     LabeledSwitch labeledSwitch;
@@ -164,6 +164,7 @@ public class PersonalMain extends AppCompatActivity {
         flag = false;
         Description description = new Description();
         mHelper = new transactionDBHelper(this);
+        mContext = this;
 
         description.setText("BTC Price");
         description.setTextColor(Color.WHITE);
@@ -250,7 +251,8 @@ public class PersonalMain extends AppCompatActivity {
                         db = mHelper.getWritableDatabase();
 
                     }catch (SQLiteException e){
-
+                        Toast myToast = Toast.makeText(getApplicationContext(), "생성 오류", Toast.LENGTH_SHORT);
+                        myToast.show();
                     }finally {
                         if (db != null && db.isOpen()) {
                             db.close();
@@ -334,7 +336,7 @@ public class PersonalMain extends AppCompatActivity {
             //리퀘스트큐 생성 (MainActivit가 메모리에서 만들어질 때 같이 생성이 될것이다.
             rQ = Volley.newRequestQueue(getApplicationContext());
         }
-
+        /** 로그 버튼 위치**/
         showlog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -372,6 +374,10 @@ public class PersonalMain extends AppCompatActivity {
 
 
 
+
     } //Timer 실행
+    public void changeLogBtn(String tmp){
+        showlog.setText(tmp);
+    }
 
 }

@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.os.Build;
+import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -35,6 +36,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 // 거래내역 SQLite 처리
                 case "1":
                     insertSQLite(key2);
+                    // 아래 거 되는지 확인 필요함
+                    ((PersonalMain)PersonalMain.mContext).changeLogBtn(key2);
                     break;
             }
         }
@@ -60,9 +63,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             ContentValues values = new ContentValues();
             values.put("recode", tmp);
-            db.insert("transaction", null, values);
+            db.insert("contact", null, values);
             mHelper.close();
         }catch (SQLiteException e) {
+            Toast myToast = Toast.makeText(getApplicationContext(), "입력 오류", Toast.LENGTH_SHORT);
+            myToast.show();
         } finally {
             if(db != null && db.isOpen()) {
                 db.close();
@@ -70,5 +75,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
 
     }
+
 }
 
