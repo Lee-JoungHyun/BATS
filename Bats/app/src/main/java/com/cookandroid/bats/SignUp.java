@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
+import java.util.Random;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,6 +19,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
+import javax.mail.*;
+import javax.mail.internet.*;
+import java.util.Properties;
 
 public class SignUp extends AppCompatActivity {
     /** 위젯 변수 **/
@@ -168,12 +171,14 @@ public class SignUp extends AppCompatActivity {
         EmailCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // 이메일 보내기
-                //String mailAdd = (String)Email.getText();
-                //
-
+                String email = Email.getText().toString();
+                Random random = new Random();
+                int randomNumber = random.nextInt(9000) + 1000;
+                String code = String.valueOf(randomNumber);
+                sendEmail(email,code);
             }
         });
+
         /** 회원가입 버튼 **/
         SignUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -244,5 +249,38 @@ public class SignUp extends AppCompatActivity {
             }
         });
         /** **/
+    }
+    public void sendEmail(String recipient, String code) {
+        // SMTP 서버 설정
+        Properties properties = new Properties();
+        properties.put("mail.smtp.host", "smtp.naver.com");  // SMTP 서버 주소
+        properties.put("mail.smtp.port", "465");  // 포트 번호
+        properties.put("mail.smtp.auth", "true");  // 인증 설정
+        properties.put("mail.smtp.starttls.enable", "true");  // TLS 암호화 설정
+
+        // 이메일 계정 정보
+        final String username = "sohappynow12@naver.com";  // 발신자 이메일 계정
+        final String password = "anrmsdlcjswo";  // 발신자 이메일 계정 비밀번호
+
+        // 세션 생성
+        Session session = Session.getInstance(properties, new Authenticator() {
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(username, password);
+            }
+        });
+
+        try {
+            // 이메일 생성
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(username));  // 발신자 이메일 주소
+            message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(recipient));  // 수신자 이메일 주소
+            message.setSubject("인증 코드");  // 이메일 제목
+            message.setText("인증 코드: " + code);  // 이메일 내용
+
+            // 이메일 전송
+            Transport.send(message);
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        }
     }
 }
