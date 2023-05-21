@@ -32,13 +32,27 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 // Notification 처리
                 case "0":
                     changeNotification(key2);
+                    ((PersonalMain)PersonalMain.mContext).changeTxtState(key2);
                     break;
                 // 거래내역 SQLite 처리
                 case "1":
                     insertSQLite(key2);
-                    // 아래 거 되는지 확인 필요함
                     ((PersonalMain)PersonalMain.mContext).changeLogBtn(key2);
                     break;
+                // 현재 보유 현금 바꾸기
+                case "2":
+                    ((PersonalMain)PersonalMain.mContext).changeTxtCash(key2);
+                    break;
+                // 현재 보유 코인량 바꾸기
+                case "3":
+                    ((PersonalMain)PersonalMain.mContext).changeTxtCoin(key2);
+                    break;
+                // 거래 단위 금액
+                case "4":
+                    ((PersonalMain)PersonalMain.mContext).changeBtnSet(key2);
+                    break;
+
+
             }
         }
     }

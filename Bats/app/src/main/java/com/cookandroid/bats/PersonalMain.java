@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
@@ -21,6 +22,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
@@ -69,13 +71,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class PersonalMain extends AppCompatActivity {
     public static Context mContext;
     CandleStickChart candleStickChart;
-    Button showlog, logOut;
+    Button showlog, logOut, btn_set;
     LabeledSwitch labeledSwitch;
     TextView state;
     ArrayList<CandleEntry> candleList = new ArrayList();
     private RequestQueue rQ;
     boolean flag;
     transactionDBHelper mHelper;
+    TextView txt_coin, txt_cash;
 
     Timer timer = new Timer();
     TimerTask TT = new TimerTask() {
@@ -161,10 +164,15 @@ public class PersonalMain extends AppCompatActivity {
         state = (TextView) findViewById(R.id.stateTxt);
         showlog = (Button) findViewById(R.id.btn_log);
         logOut = (Button) findViewById(R.id.logOut);
+        txt_cash = (TextView) findViewById(R.id.txt_cash);
+        txt_coin = (TextView) findViewById(R.id.txt_coin);
+        btn_set = (Button) findViewById(R.id.btn_set);
         flag = false;
         Description description = new Description();
         mHelper = new transactionDBHelper(this);
         mContext = this;
+        AlertDialog.Builder setM = new AlertDialog.Builder(this);
+        final EditText M = new EditText(this);
 
         description.setText("BTC Price");
         description.setTextColor(Color.WHITE);
@@ -178,6 +186,11 @@ public class PersonalMain extends AppCompatActivity {
         axis.setTextColor(Color.WHITE);
         rightAxis.setTextColor(Color.WHITE);
         leftAxis.setTextColor(Color.WHITE);
+
+        changeShowLogoBtn();
+
+        /** PersonalMain 켜질 때 서버에 보내는 메시지 **/
+        // 켜질 때 서버에게 0, 2, 3, 4 메시지를 받아야 한다!
 
 // Notification 이벤트
         //Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
@@ -371,7 +384,34 @@ public class PersonalMain extends AppCompatActivity {
                     }
             }
         })).start();
+        btn_set.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
+                setM.setTitle("Input your name");
+                setM.setMessage("Plz, input yourname");
+
+                setM.setView(M);
+
+                setM.setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        String unit = M.getText().toString();
+                        changeBtnSet(unit);
+                        /** 서버에 거래단위 보내는거 필요!! **/
+
+                    }
+                });
+
+
+                setM.setNegativeButton("no",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+
+                    }
+                });
+
+                setM.show();
+            }
+        });
 
 
 
@@ -379,5 +419,34 @@ public class PersonalMain extends AppCompatActivity {
     public void changeLogBtn(String tmp){
         showlog.setText(tmp);
     }
+    /** showLogo 버튼 변경 **/
+    public void changeShowLogoBtn() {
+        try {
+            SQLiteDatabase sqLiteDatabase = mHelper.getReadableDatabase();
+            Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM contact WHERE _id = (SELECT MAX(_id) FROM contact)", null);
+            while (cursor.moveToNext()) {
+                showlog.setText(cursor.getString(1));
+            }
+        }catch (SQLiteException e){
+            Toast myToast = Toast.makeText(getApplicationContext(), "출력 오류", Toast.LENGTH_SHORT);
+            myToast.show();
+        }finally {
 
+        }
+    }
+    public void changeTxtCash(String tmp) { txt_cash.setText("현재보유 현금 (KRW) : " + tmp);}
+    public void changeTxtCoin(String tmp) { txt_coin.setText("현재보유 코인 (ETC) : " + tmp);}
+    public void changeBtnSet(String tmp) { btn_set.setText("거래 금액 단위 : " + tmp);}
+    public void changeTxtState(String tmp) {
+
+        if (Integer.parseInt(tmp) > 0) {
+            state.setTextColor(Color.RED);
+            state.setText("수익률 : +" + tmp + "%");
+        }
+        else {
+            state.setTextColor(Color.BLUE);
+            state.setText("수익률 : -" + tmp + "%");
+        }
+
+    }
 }

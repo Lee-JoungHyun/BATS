@@ -9,7 +9,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="350dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:orientation="vertical">
 
         <com.github.mikephil.charting.charts.CandleStickChart
@@ -23,22 +23,31 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="130dp"
         android:background="@color/bg"
         android:orientation="vertical">
 
         <Button
             android:id="@+id/btn_log"
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="20dp"
             android:layout_width="350dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:background="@drawable/personermainbutton"
-            android:text="22/11/17/03:00 - 2.331(ETC)매수[22,736,000]"
+            android:text=""
             android:textColor="#FFFFFF"></Button>
             <!--
             android:text="매매 기록"
             -->
+        <Button
+            android:id="@+id/btn_set"
+            android:layout_marginTop="20dp"
+            android:layout_width="350dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:background="@drawable/personermainbutton"
+            android:text=""
+            android:textColor="#FFFFFF"></Button>
 
 
     </LinearLayout>
@@ -50,11 +59,23 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/txt_cash"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="5dp"
             android:textSize="15dp"
-            android:text="현재보유(KRW) : 10,143"
+            android:text="현재보유 현금 (KRW) : 10,143"
+            android:textColor="#FFFFFF">
+        </TextView>
+        <TextView
+            android:id="@+id/txt_coin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:textSize="15dp"
+            android:text="현재보유 코인 (ETC) : 10,143"
             android:textColor="#FFFFFF">
         </TextView>
 
@@ -64,9 +85,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="5dp"
             android:textSize="30dp"
             android:text="수익률 = 0.03%"
-            android:textColor="#ff0000"></TextView>
+            android:textColor="@color/black"></TextView>
     </LinearLayout>
 
 
@@ -79,10 +101,10 @@
 
         <com.github.angads25.toggle.widget.LabeledSwitch
             android:id="@+id/onBtn"
-            android:layout_width="120dp"
+            android:layout_width="150dp"
             android:layout_height="55dp"
             android:layout_gravity="center"
-            android:layout_margin="16dp"
+            android:layout_margin="10dp"
             android:textSize="14sp"
 
             app:colorOn="#33DD33"

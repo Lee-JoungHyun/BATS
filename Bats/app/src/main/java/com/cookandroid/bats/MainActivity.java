@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         autologin = (CheckBox) findViewById(R.id.cbox_autologin);
         /** 필드 초기화 **/
 
-        BaseUrl = "https://5fe4-59-24-142-229.ngrok-free.app/";
+        BaseUrl = "https://37ac-2001-2d8-697f-f546-5d3c-6bc-d65c-b7f0.ngrok-free.app/";
 
         /** 등록 토큰을 가져오는 설정 **/
         FirebaseMessaging.getInstance().getToken()
