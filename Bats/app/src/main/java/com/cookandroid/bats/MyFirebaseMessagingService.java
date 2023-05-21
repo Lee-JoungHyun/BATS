@@ -39,7 +39,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     insertSQLite(key2);
                     ((PersonalMain)PersonalMain.mContext).changeLogBtn(key2);
                     break;
-                // 현재 보유 현금 바꾸기
+                // 현재 보유 현금 바꾸기 (숫자)
                 case "2":
                     ((PersonalMain)PersonalMain.mContext).changeTxtCash(key2);
                     break;
@@ -51,8 +51,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 case "4":
                     ((PersonalMain)PersonalMain.mContext).changeBtnSet(key2);
                     break;
-
-
+                // 거래 상황
+                case "5":
+                    // "on", "off" 로 보내
+                    ((PersonalMain)PersonalMain.mContext).changelabel(key2);
+                    break;
             }
         }
     }

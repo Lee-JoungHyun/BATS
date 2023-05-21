@@ -171,8 +171,7 @@ public class PersonalMain extends AppCompatActivity {
         Description description = new Description();
         mHelper = new transactionDBHelper(this);
         mContext = this;
-        AlertDialog.Builder setM = new AlertDialog.Builder(this);
-        final EditText M = new EditText(this);
+
 
         description.setText("BTC Price");
         description.setTextColor(Color.WHITE);
@@ -188,6 +187,7 @@ public class PersonalMain extends AppCompatActivity {
         leftAxis.setTextColor(Color.WHITE);
 
         changeShowLogoBtn();
+
 
         /** PersonalMain 켜질 때 서버에 보내는 메시지 **/
         // 켜질 때 서버에게 0, 2, 3, 4 메시지를 받아야 한다!
@@ -384,31 +384,36 @@ public class PersonalMain extends AppCompatActivity {
                     }
             }
         })).start();
+
         btn_set.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                setM.setTitle("Input your name");
-                setM.setMessage("Plz, input yourname");
+                AlertDialog.Builder setM = new AlertDialog.Builder(btn_set.getContext());
+                final EditText M = new EditText(btn_set.getContext());
+
+                setM.setTitle("거래 단위 변경");
+                setM.setMessage("거래할 단위(KWR) 을 입력하시오");
 
                 setM.setView(M);
-
                 setM.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String unit = M.getText().toString();
-                        changeBtnSet(unit);
-                        /** 서버에 거래단위 보내는거 필요!! **/
+
+                        if(Integer.parseInt(unit) < 5000) {
+
+                        }else {
+                            changeBtnSet(unit);
+                            /** 서버에 거래단위 보내는거 필요!! **/
+                        }
+
 
                     }
                 });
-
-
                 setM.setNegativeButton("no",new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
-
                     }
                 });
-
                 setM.show();
             }
         });
@@ -416,6 +421,8 @@ public class PersonalMain extends AppCompatActivity {
 
 
     } //Timer 실행
+
+
     public void changeLogBtn(String tmp){
         showlog.setText(tmp);
     }
@@ -448,5 +455,13 @@ public class PersonalMain extends AppCompatActivity {
             state.setText("수익률 : -" + tmp + "%");
         }
 
+    }
+    public void changelabel(String tmp){
+        if (tmp.equals("on")) {
+            labeledSwitch.setOn(true);
+
+        }else{
+            labeledSwitch.setOn(false);
+        }
     }
 }
