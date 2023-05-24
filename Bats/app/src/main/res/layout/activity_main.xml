@@ -15,11 +15,13 @@
         android:textSize="70dp"
         android:gravity="center_horizontal">
     </TextView>
+
     <ImageView
         android:id="@+id/img_logo"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="200dp"
-        android:src="@drawable/logo_sample"></ImageView>
+        android:background="#00FFFFFF"
+        android:src="@drawable/batcoin"></ImageView>
 
     <EditText
         android:id="@+id/edit_id"
