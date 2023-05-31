@@ -55,9 +55,10 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
     /** 위젯 변수 **/
     Button SignUp, Login, FindAcc;
+    Boolean autologin;
     EditText ID, PW;
-    CheckBox autologin;
     /** 필드 **/
+    public static Context main;
     String info;
     String token;
     String BaseUrl;
@@ -71,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
         FindAcc = (Button) findViewById(R.id.btn_find);
         ID = (EditText) findViewById(R.id.edit_id);
         PW = (EditText) findViewById(R.id.edit_pw);
-        autologin = (CheckBox) findViewById(R.id.cbox_autologin);
+        autologin = true;
+        main = this;
         /** 필드 초기화 **/
 
         BaseUrl = "https://afbf-116-47-197-38.ngrok-free.app";
@@ -197,7 +199,7 @@ public class MainActivity extends AppCompatActivity {
                 String text_id = ID.getText().toString();
                 String text_pw = PW.getText().toString();
                 /** 자동로그인 실행 시 **/
-                if(autologin.isChecked()) {
+                if(autologin) {
 
                     try {
                         MasterKey masterkey = new MasterKey.Builder(getApplicationContext(), MasterKey.DEFAULT_MASTER_KEY_ALIAS)
@@ -240,6 +242,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else {
                     //로그인 성공시 오픈
+                    autologin = true;
                     checkAccount(text_id,text_pw);
                 }
 
@@ -344,5 +347,8 @@ public class MainActivity extends AppCompatActivity {
         // 알림 설정 화면 열기
         startActivity(intent);
 
+    }
+    public void logout() {
+        autologin = false;
     }
 }

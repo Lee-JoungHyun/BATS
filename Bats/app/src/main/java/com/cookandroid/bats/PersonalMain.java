@@ -245,6 +245,7 @@ public class PersonalMain extends AppCompatActivity {
                     SharedPreferences.Editor spfEditor = sharedPreferences.edit();
                     spfEditor.clear();
                     spfEditor.commit();
+                    ((MainActivity)MainActivity.main).logout();
                     finish();
 
                 }catch (Exception ex) {
