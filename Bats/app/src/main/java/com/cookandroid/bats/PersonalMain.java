@@ -191,7 +191,9 @@ public class PersonalMain extends AppCompatActivity {
 
         /** PersonalMain 켜질 때 서버에 보내는 메시지 **/
         // 켜질 때 서버에게 0, 2, 3, 4 메시지를 받아야 한다!
-
+        txt_cash.setText(getIntent().getStringExtra("krw_bal"));
+        txt_coin.setText(getIntent().getStringExtra("coin_bal"));
+        btn_set.setText(getIntent().getStringExtra("tr_unit"));
 // Notification 이벤트
         Intent intent = new Intent(getApplicationContext(), PersonalMain.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);

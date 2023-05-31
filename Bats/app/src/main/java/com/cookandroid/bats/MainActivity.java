@@ -59,7 +59,6 @@ public class MainActivity extends AppCompatActivity {
     EditText ID, PW;
     /** 필드 **/
     public static Context main;
-    String info;
     String token;
     String BaseUrl;
     @Override
@@ -258,13 +257,6 @@ public class MainActivity extends AppCompatActivity {
     }
     private void checkAccount(String userId, String userPass) {
 
-        Intent intent = new Intent(getApplicationContext(), PersonalMain.class);
-        intent.putExtra("url",BaseUrl);
-        intent.putExtra("id",userId);
-        intent.putExtra("Info", info);
-        startActivity(intent);
-
-
         RequestBody checkID = RequestBody.create(MediaType.parse("text/plain"), userId);
         RequestBody checkPW = RequestBody.create(MediaType.parse("text/plain"), userPass);
 
@@ -291,21 +283,16 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), PersonalMain.class);
                     intent.putExtra("url",BaseUrl);
                     intent.putExtra("id",userId);
-//                    String responseData = response.toString();
-//                    JSONObject json;
-//                    try {
-//                         json = new JSONObject(responseData);
-//                    } catch (JSONException e) {
-//                        throw new RuntimeException(e);
-//                    }
-//
-//                    try {
-//                        Log.d(TAG, "정보"+json.getString("id"));
-//                    } catch (JSONException e) {
-//                        throw new RuntimeException(e);
-//                    }
-
-                    intent.putExtra("Info", info); // Verify된 경우 userId 다음 액티비티로 전달하기
+                    String[] data = {"name", "id", "token", "on_trade", "tr_unit", "krw_bal", "coin_bal"};
+                    try {
+                        String responseData = response.body().string();
+                          JSONObject json = new JSONObject(responseData);
+                          for (int i=0; i<data.length; i++){
+                              intent.putExtra(data[i],json.getString(data[i]));
+                          }
+                    } catch (IOException | JSONException e) {
+                        e.printStackTrace();
+                    }
                     startActivity(intent);
                 }else {
                     Log.d(TAG,"Post Status Code ㅠㅠ : " + response.code());
