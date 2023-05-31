@@ -192,8 +192,9 @@ public class SignUp extends AppCompatActivity {
                 RequestBody[] requestBodyArray = {
                         RequestBody.create(MediaType.parse("text/plain"), Name.getText().toString()),
                         RequestBody.create(MediaType.parse("text/plain"), Id.getText().toString()),
+                        RequestBody.create(MediaType.parse("text/plain"), "pk"),
+                        RequestBody.create(MediaType.parse("text/plain"), "ak"),
                         RequestBody.create(MediaType.parse("text/plain"), Pw.getText().toString()),
-                        RequestBody.create(MediaType.parse("text/plain"), Key.getText().toString()),
                         RequestBody.create(MediaType.parse("text/plain"), Email.getText().toString()),
                         RequestBody.create(MediaType.parse("text/plain"), Pn.getText().toString()),
                         RequestBody.create(MediaType.parse("text/plain"), token)
@@ -209,7 +210,7 @@ public class SignUp extends AppCompatActivity {
                 SignUpAPI sign_api = retrofit3.create(SignUpAPI.class);
                 Call<ResponseBody> call = sign_api.sign_up(requestBodyArray[0],requestBodyArray[1],
                         requestBodyArray[2],requestBodyArray[3],requestBodyArray[4],
-                        requestBodyArray[5],requestBodyArray[6]);
+                        requestBodyArray[5],requestBodyArray[6],requestBodyArray[7]);
                 call.enqueue(new Callback<ResponseBody>(){
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -219,8 +220,7 @@ public class SignUp extends AppCompatActivity {
                             builder.setMessage("회원가입 완료!");
                             builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    finish();
+                                public void onClick(DialogInterface dialog, int which){
                                     // Do something when the OK button is clicked
                                     /** 대충 확인 누르면 다시 로그인 화면으로 돌아감 **/
                                     finish();

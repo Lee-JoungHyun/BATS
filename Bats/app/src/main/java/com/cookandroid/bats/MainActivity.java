@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     /** 필드 **/
     String info;
     String token;
-    String BaseUrl;
+    String BaseUrl = "http://13.125.51.94:8000/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
