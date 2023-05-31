@@ -37,6 +37,9 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.File;
 import java.io.IOException;
 
@@ -57,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
     /** 필드 **/
     String info;
     String token;
-    String BaseUrl = "http://13.125.51.94:8000/";
+    String BaseUrl;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
         autologin = (CheckBox) findViewById(R.id.cbox_autologin);
         /** 필드 초기화 **/
 
-        BaseUrl = "http://13.125.51.94:8000/";
+        BaseUrl = "https://afbf-116-47-197-38.ngrok-free.app";
 
         /** 등록 토큰을 가져오는 설정 **/
         FirebaseMessaging.getInstance().getToken()
@@ -251,13 +254,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private void checkAccount(String userId, String userPass) {
-        /**
+
         Intent intent = new Intent(getApplicationContext(), PersonalMain.class);
         intent.putExtra("url",BaseUrl);
         intent.putExtra("id",userId);
         intent.putExtra("Info", info);
         startActivity(intent);
-         **/
+
 
         RequestBody checkID = RequestBody.create(MediaType.parse("text/plain"), userId);
         RequestBody checkPW = RequestBody.create(MediaType.parse("text/plain"), userPass);
@@ -285,13 +288,20 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), PersonalMain.class);
                     intent.putExtra("url",BaseUrl);
                     intent.putExtra("id",userId);
-                    ResponseBody body = response.body();
-                    try{
-                        info = body.string();
-                    }
-                    catch(IOException e){
-                        e.printStackTrace();
-                    }
+//                    String responseData = response.toString();
+//                    JSONObject json;
+//                    try {
+//                         json = new JSONObject(responseData);
+//                    } catch (JSONException e) {
+//                        throw new RuntimeException(e);
+//                    }
+//
+//                    try {
+//                        Log.d(TAG, "정보"+json.getString("id"));
+//                    } catch (JSONException e) {
+//                        throw new RuntimeException(e);
+//                    }
+
                     intent.putExtra("Info", info); // Verify된 경우 userId 다음 액티비티로 전달하기
                     startActivity(intent);
                 }else {
