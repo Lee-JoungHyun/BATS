@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         autologin = (CheckBox) findViewById(R.id.cbox_autologin);
         /** 필드 초기화 **/
 
-        BaseUrl = "https://5656-116-47-197-35.ngrok-free.app/";
+        BaseUrl = "http://13.125.51.94:8000/";
 
         /** 등록 토큰을 가져오는 설정 **/
         FirebaseMessaging.getInstance().getToken()
@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
                         SharedPreferences.Editor spfEditor = sharedPreferences.edit();
                         spfEditor.clear();
                         spfEditor.commit();
-                        finish();
+                        //finish();
 
                         spfEditor.putString("userId", text_id);
                         spfEditor.putString("userPw", text_pw);
@@ -251,7 +251,14 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     private void checkAccount(String userId, String userPass) {
-        //
+        /**
+        Intent intent = new Intent(getApplicationContext(), PersonalMain.class);
+        intent.putExtra("url",BaseUrl);
+        intent.putExtra("id",userId);
+        intent.putExtra("Info", info);
+        startActivity(intent);
+         **/
+
         RequestBody checkID = RequestBody.create(MediaType.parse("text/plain"), userId);
         RequestBody checkPW = RequestBody.create(MediaType.parse("text/plain"), userPass);
 
@@ -301,6 +308,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+
+
     }
     public boolean checkNotification(Context context) {
         return NotificationManagerCompat.from(context).areNotificationsEnabled();
@@ -324,6 +333,6 @@ public class MainActivity extends AppCompatActivity {
 
         // 알림 설정 화면 열기
         startActivity(intent);
-    }
 
+    }
 }

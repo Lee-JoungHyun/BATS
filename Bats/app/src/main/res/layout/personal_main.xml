@@ -34,7 +34,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:background="@drawable/personermainbutton"
-            android:text=""
+            android:text="23/05/24/21:32 - 0.0021(BTC)매수[10000]"
             android:textColor="#FFFFFF"></Button>
             <!--
             android:text="매매 기록"
@@ -46,7 +46,7 @@
             android:layout_height="35dp"
             android:layout_gravity="center"
             android:background="@drawable/personermainbutton"
-            android:text=""
+            android:text="거래 단위(KRW) : 10000"
             android:textColor="#FFFFFF"></Button>
 
 
@@ -75,7 +75,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:textSize="15dp"
-            android:text="현재보유 코인 (ETC) : 10,143"
+            android:text="현재보유 코인 (BTC) : 0.023"
             android:textColor="#FFFFFF">
         </TextView>
 
@@ -87,8 +87,8 @@
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:textSize="30dp"
-            android:text="수익률 = 0.03%"
-            android:textColor="@color/black"></TextView>
+            android:text="수익률 = +0.03%"
+            android:textColor="#0000FF"></TextView>
     </LinearLayout>
 
 
@@ -122,14 +122,17 @@
         android:layout_height="match_parent"
         android:background="@color/bg"
         android:orientation="vertical">
+
         <Button
             android:id="@+id/logOut"
             android:layout_width="80dp"
             android:layout_height="33dp"
-            android:layout_gravity="center"
-            android:textColor="@color/white"
+            android:layout_gravity="left"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="20dp"
             android:background="@drawable/values3"
-            android:text="로그 아웃"></Button>
+            android:text="로그 아웃"
+            android:textColor="@color/white"></Button>
     </LinearLayout>
 
 

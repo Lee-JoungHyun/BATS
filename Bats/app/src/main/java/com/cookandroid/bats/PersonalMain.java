@@ -193,10 +193,12 @@ public class PersonalMain extends AppCompatActivity {
         // 켜질 때 서버에게 0, 2, 3, 4 메시지를 받아야 한다!
 
 // Notification 이벤트
-        //Intent notificationIntent = new Intent(getApplicationContext(), MainActivity.class);
-        //PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, notificationIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Intent intent = new Intent(getApplicationContext(), PersonalMain.class);
+        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
 
 // Notification 생성
+
+
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
@@ -206,18 +208,19 @@ public class PersonalMain extends AppCompatActivity {
                             "거래 현재 상황",
                             NotificationManager.IMPORTANCE_DEFAULT
                     );
-            notificationChannel.setDescription("알람테스트");
+            notificationChannel.setDescription("거래현황");
             notificationManager.createNotificationChannel(notificationChannel);
         }
 
         Notification noti = new NotificationCompat.Builder(this, "Trading State")
                 .setColor(Color.BLACK)
-                .setSmallIcon(android.R.drawable.ic_notification_overlay)
+                .setSmallIcon(R.drawable.logoimg)
                 .setContentTitle("Bats 거래 상황")
                 .setContentText("+0.03%")
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(false)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setOngoing(true)
-                //.setContentIntent(pendingIntent)
                 .build();
 
         final NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);

@@ -12,12 +12,17 @@
     <uses-permission android:name="com.cookandroid.bats.permission.C2D_MESSAGE" />
 
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher_bats"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_bats_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Bats">
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/logoimg" />
 
         <activity
             android:name=".MainActivity"

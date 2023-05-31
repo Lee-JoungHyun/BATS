@@ -171,11 +171,14 @@ public class SignUp extends AppCompatActivity {
         EmailCheck.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                /**
                 String email = Email.getText().toString();
                 Random random = new Random();
                 int randomNumber = random.nextInt(9000) + 1000;
                 String code = String.valueOf(randomNumber);
                 sendEmail(email,code);
+                 **/
+
             }
         });
 
@@ -227,7 +230,7 @@ public class SignUp extends AppCompatActivity {
                             dialog.show();
                         }
                         else if(status_code == 400){
-                            builder.setMessage("회원가입 실패! 이메일 입력란 오류");
+                            builder.setMessage("회원가입 실패!");
                             builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {

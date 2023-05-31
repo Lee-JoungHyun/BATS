@@ -48,10 +48,10 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="30dp"
-                android:orientation="vertical" >
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/signNametext"
@@ -61,15 +61,14 @@
                     android:text="이름"
                     android:textColor="#F5F5DC"
                     android:textSize="20dp"
-                    android:textStyle="bold"
-                    />
+                    android:textStyle="bold" />
 
                 <EditText
                     android:id="@+id/signName"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:background="@drawable/values2"
                     android:layout_marginBottom="20dp"
+                    android:background="@drawable/values2"
                     android:ems="10"
                     android:hint=" 이름"
                     android:inputType="textPersonName"
@@ -85,38 +84,39 @@
                     android:textSize="20dp"
                     android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/signID"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:background="@drawable/values2"
-                    android:layout_marginBottom="20dp"
-                    android:ems="10"
-                    android:hint=" 아이디"
-                    android:inputType="textPersonName"
-                    android:text="" />
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
                     android:orientation="horizontal">
 
-                    <Button
-                        android:id="@+id/IDcheckbutton"
-                        android:layout_width="100dp"
+                    <EditText
+                        android:id="@+id/signID"
+                        android:layout_width="wrap_content"
                         android:layout_height="40dp"
-                        android:background="@drawable/values3"
-                        android:text="중복확인"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:layout_marginBottom="20dp"
+                        android:background="@drawable/values2"
+                        android:ems="10"
+                        android:hint=" 아이디"
+                        android:inputType="textPersonName"
+                        android:text="" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="end"
+                        android:orientation="horizontal">
+
+                        <Button
+                            android:id="@+id/IDcheckbutton"
+                            android:layout_width="100dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/values3"
+                            android:text="중복확인"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
 
                 <TextView
                     android:id="@+id/signPWtext"
@@ -133,8 +133,8 @@
                     android:id="@+id/signPW"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:background="@drawable/values2"
                     android:layout_marginBottom="20dp"
+                    android:background="@drawable/values2"
                     android:ems="10"
                     android:hint=" 비밀번호"
                     android:inputType="textPassword"
@@ -160,12 +160,13 @@
                         android:id="@+id/signPW2"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
-                        android:background="@drawable/values2"
                         android:layout_marginBottom="20dp"
+                        android:background="@drawable/values2"
                         android:ems="10"
                         android:hint=" 비밀번호 다시 입력"
                         android:inputType="textPassword"
                         android:text="" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -177,16 +178,17 @@
                             android:layout_height="wrap_content"
                             android:gravity="end"
                             android:orientation="horizontal">
-                    <Button
-                        android:id="@+id/pwcheckbutton"
-                        android:layout_width="100dp"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="10dp"
-                        android:background="@drawable/values3"
-                        android:text="확인"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+
+                            <Button
+                                android:id="@+id/pwcheckbutton"
+                                android:layout_width="100dp"
+                                android:layout_height="40dp"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/values3"
+                                android:text="확인"
+                                android:textColor="@color/white"
+                                android:textSize="16sp"
+                                android:textStyle="bold" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -211,26 +213,27 @@
                         android:id="@+id/signBirth"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
-                        android:background="@drawable/values2"
-                        android:layout_marginBottom="20dp"
                         android:layout_marginRight="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/values2"
                         android:ems="10"
                         android:hint="Key"
                         android:inputType="textPersonName"
                         android:text="" />
 
-            </LinearLayout>
+                </LinearLayout>
 
 
-                    <TextView
-                        android:id="@+id/signmailtext"
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:layout_marginBottom="20dp"
-                        android:text="이메일"
-                        android:textColor="#F5F5DC"
-                        android:textSize="20dp"
-                        android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/signmailtext"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:layout_marginBottom="10dp"
+                    android:text="이메일"
+                    android:textColor="#F5F5DC"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="47dp"
@@ -240,31 +243,36 @@
                         android:id="@+id/signmail"
                         android:layout_width="wrap_content"
                         android:layout_height="40dp"
-                        android:background="@drawable/values2"
                         android:layout_marginBottom="20dp"
+                        android:background="@drawable/values2"
                         android:ems="10"
                         android:hint=" 이메일"
                         android:inputType="textPersonName"
                         android:text="" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="end"
                         android:orientation="horizontal">
-                    <Button
-                        android:id="@+id/Emailcheckbutton"
-                        android:layout_width="120dp"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="10dp"
-                        android:background="@drawable/values3"
-                        android:text="이메일 인증"
-                        android:textColor="@color/white"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+
+                        <Button
+                            android:id="@+id/Emailcheckbutton"
+                            android:layout_width="110dp"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="10dp"
+                            android:background="@drawable/values3"
+                            android:text="이메일 확인"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
                     </LinearLayout>
 
                 </LinearLayout>
+                ///
 
+                ///
                 <TextView
                     android:id="@+id/signPNum"
                     android:layout_width="match_parent"
@@ -279,27 +287,29 @@
                     android:id="@+id/signPnum"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
-                    android:background="@drawable/values2"
                     android:layout_marginBottom="20dp"
+                    android:background="@drawable/values2"
                     android:ems="10"
                     android:hint="- 없이 입력"
                     android:inputType="textPersonName"
                     android:text="" />
 
-            <Button
-                android:id="@+id/signupbutton"
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:layout_marginTop="20dp"
-                android:layout_gravity="center"
-                android:text="회원가입"
-                android:background="@drawable/values3"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="bold" />
 
-        </LinearLayout>
-    </ScrollView>
+
+                <Button
+                    android:id="@+id/signupbutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/values3"
+                    android:text="회원가입"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
     </FrameLayout>
