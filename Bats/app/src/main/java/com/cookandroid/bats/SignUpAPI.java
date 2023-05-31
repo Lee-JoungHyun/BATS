@@ -13,11 +13,12 @@ public interface SignUpAPI {
     Call<ResponseBody> sign_up(
             @Part("name") RequestBody param1,
             @Part("id") RequestBody param2,
-            @Part("password") RequestBody param3,
-            @Part("key") RequestBody param4,
-            @Part("email") RequestBody param5,
-            @Part("phone") RequestBody param6,
-            @Part("token") RequestBody param7
+            @Part("private_key") RequestBody param3,
+            @Part("access_key") RequestBody param4,
+            @Part("password") RequestBody param5,
+            @Part("email") RequestBody param6,
+            @Part("phone") RequestBody param7,
+            @Part("token") RequestBody param8
     );
 }
 

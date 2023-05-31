@@ -57,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
     /** 필드 **/
     String info;
     String token;
-    String BaseUrl;
+    String BaseUrl = "http://13.125.51.94:8000/";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         autologin = (CheckBox) findViewById(R.id.cbox_autologin);
         /** 필드 초기화 **/
 
-        BaseUrl = "https://5656-116-47-197-35.ngrok-free.app/";
+
 
         /** 등록 토큰을 가져오는 설정 **/
         FirebaseMessaging.getInstance().getToken()
