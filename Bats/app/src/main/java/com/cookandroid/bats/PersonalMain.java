@@ -194,6 +194,8 @@ public class PersonalMain extends AppCompatActivity {
         txt_cash.setText(getIntent().getStringExtra("krw_bal"));
         txt_coin.setText(getIntent().getStringExtra("coin_bal"));
         btn_set.setText(getIntent().getStringExtra("tr_unit"));
+        String OnOff = getIntent().getStringExtra("on_trade");
+        changelabel(OnOff);
 // Notification 이벤트
         Intent intent = new Intent(getApplicationContext(), PersonalMain.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
@@ -281,14 +283,17 @@ public class PersonalMain extends AppCompatActivity {
 /** 여기다가 서버에 요청 하는 코드 **/
                     String Url = getIntent().getStringExtra("url");
                     String id = getIntent().getStringExtra("id");
-                    RequestBody id_check = RequestBody.create(MediaType.parse("text/plain"),id);
+                    String token = getIntent().getStringExtra("token");
+                    RequestBody Id = RequestBody.create(MediaType.parse("text/plain"),id);
+                    RequestBody Token = RequestBody.create(MediaType.parse("text/plain"),token);
+                    RequestBody Tr_unit = RequestBody.create(MediaType.parse("text/plain"),getIntent().getStringExtra("tr_unit"));
                     AlertDialog.Builder builder = new AlertDialog.Builder(labeledSwitch.getContext());
                     Retrofit.Builder builder3 = new Retrofit.Builder()
                             .baseUrl(Url)
                             .addConverterFactory(GsonConverterFactory.create());
                     Retrofit retrofit3 = builder3.build();
                     TradeAPI id_api = retrofit3.create(TradeAPI.class);
-                    Call<ResponseBody> call = id_api.auto_trade(id_check);
+                    Call<ResponseBody> call = id_api.auto_trade(Id,Token,Tr_unit);
                     call.enqueue(new Callback<ResponseBody>(){
                         @Override
                         public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
@@ -328,6 +333,50 @@ public class PersonalMain extends AppCompatActivity {
                     Toast toast = Toast.makeText(getApplicationContext(), "Off.",Toast.LENGTH_SHORT);
                     toast.show();
                     SQLiteDatabase db = null;
+                    // 서버에 거래 종료 신호 보내기
+                    RequestBody Id = RequestBody.create(MediaType.parse("text/plain"),getIntent().getStringExtra("id"));
+                    String Url = getIntent().getStringExtra("url");
+                    AlertDialog.Builder builder = new AlertDialog.Builder(labeledSwitch.getContext());
+                    Retrofit.Builder builder3 = new Retrofit.Builder()
+                            .baseUrl(Url)
+                            .addConverterFactory(GsonConverterFactory.create());
+                    Retrofit retrofit3 = builder3.build();
+                    CancelTradeAPI id_api = retrofit3.create(CancelTradeAPI.class);
+                    Call<ResponseBody> call = id_api.cancel_trade(Id);
+                    call.enqueue(new Callback<ResponseBody>(){
+                        @Override
+                        public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+                            // 전송 성공시 처리할 코드
+                            int status_code = response.code();
+                            if(status_code == 200){
+                                builder.setMessage("거래가 취소되었습니다!");
+                                builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // Do something when the OK button is clicked
+                                    }
+                                });
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            }
+                            else if(status_code == 400){
+                                builder.setMessage("거래요청이 실패했습니다!");
+                                builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        // Do something when the OK button is clicked
+                                    }
+                                });
+                                AlertDialog dialog = builder.create();
+                                dialog.show();
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<ResponseBody> call, Throwable t) {
+                            // 전송 실패시 처리할 코드
+                        }
+                    });
+
                 }
             }
 
@@ -411,6 +460,50 @@ public class PersonalMain extends AppCompatActivity {
                         }else {
                             changeBtnSet(unit);
                             /** 서버에 거래단위 보내는거 필요!! **/
+                            /** Url 받아오기 **/
+                            String Url = getIntent().getStringExtra("url");
+                            RequestBody Id = RequestBody.create(MediaType.parse("text/plain"),getIntent().getStringExtra("id"));
+                            RequestBody Unit = RequestBody.create(MediaType.parse("text/plain"),unit);
+                            androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(PersonalMain.mContext);
+                            Retrofit.Builder builder3 = new Retrofit.Builder()
+                                    .baseUrl(Url)
+                                    .addConverterFactory(GsonConverterFactory.create());
+                            Retrofit retrofit3 = builder3.build();
+                            ChangeUnitAPI unit_api = retrofit3.create(ChangeUnitAPI.class);
+                            Call<ResponseBody> call = unit_api.change_unit(Id,Unit);
+                            call.enqueue(new Callback<ResponseBody>(){
+                                @Override
+                                public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+                                    // 전송 성공시 처리할 코드
+                                    int status_code = response.code();
+                                    if(status_code == 200){
+                                        builder.setMessage("거래단위가 변경되었습니다!");
+                                        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                // Do something when the OK button is clicked
+                                            }
+                                        });
+                                        androidx.appcompat.app.AlertDialog dialog = builder.create();
+                                        dialog.show();
+                                    }
+                                    else if(status_code == 404){
+                                        builder.setMessage("변경 불가!");
+                                        builder.setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface dialog, int which) {
+                                                // Do something when the OK button is clicked
+                                            }
+                                        });
+                                        androidx.appcompat.app.AlertDialog dialog = builder.create();
+                                        dialog.show();
+                                    }
+                                }
+                                @Override
+                                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                    // 전송 실패시 처리할 코드
+                                }
+                            });
                         }
 
 
@@ -463,7 +556,7 @@ public class PersonalMain extends AppCompatActivity {
 
     }
     public void changelabel(String tmp){
-        if (tmp.equals("on")) {
+        if (tmp.equals("true")) {
             labeledSwitch.setOn(true);
 
         }else{

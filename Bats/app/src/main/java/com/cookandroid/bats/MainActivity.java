@@ -283,16 +283,20 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(getApplicationContext(), PersonalMain.class);
                     intent.putExtra("url",BaseUrl);
                     intent.putExtra("id",userId);
+                    intent.putExtra("token", token);
                     String[] data = {"name", "id", "token", "on_trade", "tr_unit", "krw_bal", "coin_bal"};
+
                     try {
                         String responseData = response.body().string();
-                          JSONObject json = new JSONObject(responseData);
+                        JSONObject json = new JSONObject(responseData);
                           for (int i=0; i<data.length; i++){
                               intent.putExtra(data[i],json.getString(data[i]));
                           }
+                        //Log.d(TAG,"정보:"+json.getString("on_trade"));
                     } catch (IOException | JSONException e) {
                         e.printStackTrace();
                     }
+
                     startActivity(intent);
                 }else {
                     Log.d(TAG,"Post Status Code ㅠㅠ : " + response.code());
