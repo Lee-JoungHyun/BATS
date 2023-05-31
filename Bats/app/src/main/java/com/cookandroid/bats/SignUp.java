@@ -45,7 +45,7 @@ public class SignUp extends AppCompatActivity {
         /** Button **/
         IdCheck = (Button)findViewById(R.id.IDcheckbutton);
         PwCheck = (Button)findViewById(R.id.pwcheckbutton);
-        EmailCheck = (Button) findViewById(R.id.Emailcheckbutton);
+
         SignUp = (Button)findViewById(R.id.signupbutton);
 
         /** TextView **/
@@ -165,20 +165,6 @@ public class SignUp extends AppCompatActivity {
                     AlertDialog dialog = builder.create();
                     dialog.show();
                 }
-            }
-        });
-        /** 이메일 인증 확인 버튼 **/
-        EmailCheck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                /**
-                String email = Email.getText().toString();
-                Random random = new Random();
-                int randomNumber = random.nextInt(9000) + 1000;
-                String code = String.valueOf(randomNumber);
-                sendEmail(email,code);
-                 **/
-
             }
         });
 
