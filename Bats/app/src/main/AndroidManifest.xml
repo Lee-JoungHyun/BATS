@@ -20,6 +20,7 @@
         android:icon="@mipmap/ic_launcher_bats"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_bats_round"
+        android:usesCleartextTraffic="true"
         android:supportsRtl="true"
         android:theme="@style/Theme.Bats">
 

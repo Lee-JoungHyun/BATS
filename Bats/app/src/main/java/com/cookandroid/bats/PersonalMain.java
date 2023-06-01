@@ -191,11 +191,11 @@ public class PersonalMain extends AppCompatActivity {
 
         /** PersonalMain 켜질 때 서버에 보내는 메시지 **/
         // 켜질 때 서버에게 0, 2, 3, 4 메시지를 받아야 한다!
-        txt_cash.setText(getIntent().getStringExtra("krw_bal"));
-        txt_coin.setText(getIntent().getStringExtra("coin_bal"));
-        btn_set.setText(getIntent().getStringExtra("tr_unit"));
-        String OnOff = getIntent().getStringExtra("on_trade");
-        changelabel(OnOff);
+        changeTxtCash(getIntent().getStringExtra("krw_bal"));
+        changeTxtCoin(getIntent().getStringExtra("coin_bal"));
+        changeBtnSet(getIntent().getStringExtra("tr_unit"));
+        changelabel(getIntent().getStringExtra("on_trade"));
+
 // Notification 이벤트
         Intent intent = new Intent(getApplicationContext(), PersonalMain.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
@@ -262,6 +262,7 @@ public class PersonalMain extends AppCompatActivity {
             public void onSwitched(ToggleableView toggleableView, boolean isOn) {
                 // 거래 시작 부분
                 if(isOn){
+                    changeTxtState("0");
                     notificationManager.notify(0, noti);
                     Toast toast = Toast.makeText(getApplicationContext(), "On.",Toast.LENGTH_SHORT);
                     toast.show();
@@ -447,16 +448,16 @@ public class PersonalMain extends AppCompatActivity {
                 AlertDialog.Builder setM = new AlertDialog.Builder(btn_set.getContext());
                 final EditText M = new EditText(btn_set.getContext());
 
-                setM.setTitle("거래 단위 변경");
-                setM.setMessage("거래할 단위(KWR) 을 입력하시오");
+                setM.setTitle("거래 단위 변경(KWR)");
+                setM.setMessage("최소 10000");
 
                 setM.setView(M);
                 setM.setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int whichButton) {
                         String unit = M.getText().toString();
 
-                        if(Integer.parseInt(unit) < 5000) {
-
+                        if(Integer.parseInt(unit) < 10000) {
+                            Toast.makeText(getApplicationContext(), "거래단위 변경 실패", Toast.LENGTH_SHORT).show();
                         }else {
                             changeBtnSet(unit);
                             /** 서버에 거래단위 보내는거 필요!! **/
@@ -549,9 +550,12 @@ public class PersonalMain extends AppCompatActivity {
             state.setTextColor(Color.RED);
             state.setText("수익률 : +" + tmp + "%");
         }
-        else {
+        else if(Integer.parseInt(tmp) < 0){
             state.setTextColor(Color.BLUE);
             state.setText("수익률 : -" + tmp + "%");
+        }else {
+            state.setTextColor(Color.RED);
+            state.setText("수익률 :  " + tmp + "%");
         }
 
     }
