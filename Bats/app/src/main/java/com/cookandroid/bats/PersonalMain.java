@@ -446,7 +446,7 @@ public class PersonalMain extends AppCompatActivity {
         }
     }
     public void changeTxtCash(String tmp) { txt_cash.setText("현재보유 현금 (KRW) : " + tmp);}
-    public void changeTxtCoin(String tmp) { txt_coin.setText("현재보유 코인 (ETC) : " + tmp);}
+    public void changeTxtCoin(String tmp) { txt_coin.setText("현재보유 코인 (BTC) : " + tmp);}
     public void changeBtnSet(String tmp) { btn_set.setText("거래 금액 단위 : " + tmp);}
     public void changeTxtState(String tmp) {
 
