@@ -7,12 +7,11 @@ import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Part;
 
-public interface TradeAPI {
+public interface ChangeUnitAPI {
     @Multipart
-    @POST("/users/logined/trade/")
-    Call<ResponseBody> auto_trade(
+    @POST("/users/logined/change_unit/")
+    Call<ResponseBody> change_unit(
             @Part("id") RequestBody param1,
-            @Part("token") RequestBody param2,
-            @Part("tr_unit") RequestBody param3
+            @Part("tr_unit") RequestBody param2
     );
 }
