@@ -9,6 +9,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Color;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
 import android.widget.Toast;
 
 import androidx.core.app.NotificationCompat;
@@ -33,13 +35,29 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 // Notification 처리
                 case "0":
                     changeNotification(key2);
-                    //((PersonalMain)PersonalMain.mContext).changeTxtState(key2);
+                    Handler handler0 = new Handler(Looper.getMainLooper());
+                    handler0.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            // UI 변경 작업 수행
+                            ((PersonalMain)PersonalMain.mContext).changeTxtState(key2);
+                        }
+                    });
+
                     break;
                 // 거래내역 SQLite 처리
                 case "1":
                     insertSQLite(key2);
                     try {
-                        ((PersonalMain) PersonalMain.mContext).changeLogBtn(key2);
+                        Handler handler1 = new Handler(Looper.getMainLooper());
+                        handler1.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                // UI 변경 작업 수행
+                                ((PersonalMain) PersonalMain.mContext).changeLogBtn(key2);
+                            }
+                        });
+
                     }catch (NullPointerException e){
 
                     }
@@ -47,21 +65,43 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     break;
                 // 현재 보유 현금 바꾸기 (숫자)
                 case "2":
-                    ((PersonalMain)PersonalMain.mContext).changeTxtCash(key2);
+                    Handler handler2 = new Handler(Looper.getMainLooper());
+                    handler2.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            // UI 변경 작업 수행
+                            ((PersonalMain)PersonalMain.mContext).changeTxtCash(key2);
+                        }
+                    });
+
                     break;
                 // 현재 보유 코인량 바꾸기
                 case "3":
-                    ((PersonalMain)PersonalMain.mContext).changeTxtCoin(key2);
+                    Handler handler3 = new Handler(Looper.getMainLooper());
+                    handler3.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            // UI 변경 작업 수행
+                            ((PersonalMain)PersonalMain.mContext).changeTxtCoin(key2);
 
-                    // 현재 보유 코인량 바꾸기
-                    ((PersonalMain)PersonalMain.mContext).changeTxtCoin(key3);
-                    // 현재 보유 현금 바꾸기 (숫자)
-                    ((PersonalMain)PersonalMain.mContext).changeTxtCash(key4);
-
+                            // 현재 보유 코인량 바꾸기
+                            ((PersonalMain)PersonalMain.mContext).changeTxtCoin(key3);
+                            // 현재 보유 현금 바꾸기 (숫자)
+                            ((PersonalMain)PersonalMain.mContext).changeTxtCash(key4);
+                        }
+                    });
                     break;
                 // 거래 단위 금액
                 case "4":
-                    ((PersonalMain)PersonalMain.mContext).changeBtnSet(key2);
+                    Handler handler4 = new Handler(Looper.getMainLooper());
+                    handler4.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            // UI 변경 작업 수행
+                            ((PersonalMain)PersonalMain.mContext).changeBtnSet(key2);
+                        }
+                    });
+
             }
         }
     }
