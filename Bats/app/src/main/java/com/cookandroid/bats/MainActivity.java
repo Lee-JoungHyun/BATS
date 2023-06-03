@@ -75,8 +75,8 @@ public class MainActivity extends AppCompatActivity {
         main = this;
         /** 필드 초기화 **/
 
-        //BaseUrl = "https://afbf-116-47-197-38.ngrok-free.app";
-        BaseUrl = "http://13.125.51.94:8000/";
+        BaseUrl = "https://2005-116-47-197-38.ngrok-free.app";
+        //BaseUrl = "http://13.125.51.94:8000/";
 
         /** 등록 토큰을 가져오는 설정 **/
         FirebaseMessaging.getInstance().getToken()
@@ -285,7 +285,7 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("url",BaseUrl);
                     intent.putExtra("id",userId);
                     intent.putExtra("token", token);
-                    String[] data = {"name", "id", "token", "on_trade", "tr_unit", "krw_bal", "coin_bal"};
+                    String[] data = {"name", "id", "token", "on_trade", "tr_unit", "krw_bal", "coin_bal","profit"};
 
                     try {
                         String responseData = response.body().string();

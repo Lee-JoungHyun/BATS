@@ -26,13 +26,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             // 데이터 메시지에서 필요한 데이터 추출
             String key1 = remoteMessage.getData().get("key1");
             String key2 = remoteMessage.getData().get("key2");
-
+            String key3 = remoteMessage.getData().get("key3");
+            String key4 = remoteMessage.getData().get("key4");
             // 수신된 데이터를 기반으로 필요한 작업 수행
             switch (key1) {
                 // Notification 처리
                 case "0":
                     changeNotification(key2);
-                    ((PersonalMain)PersonalMain.mContext).changeTxtState(key2);
+                    //((PersonalMain)PersonalMain.mContext).changeTxtState(key2);
                     break;
                 // 거래내역 SQLite 처리
                 case "1":
@@ -42,6 +43,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                     }catch (NullPointerException e){
 
                     }
+
                     break;
                 // 현재 보유 현금 바꾸기 (숫자)
                 case "2":
@@ -50,16 +52,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 // 현재 보유 코인량 바꾸기
                 case "3":
                     ((PersonalMain)PersonalMain.mContext).changeTxtCoin(key2);
+
+                    // 현재 보유 코인량 바꾸기
+                    ((PersonalMain)PersonalMain.mContext).changeTxtCoin(key3);
+                    // 현재 보유 현금 바꾸기 (숫자)
+                    ((PersonalMain)PersonalMain.mContext).changeTxtCash(key4);
+
                     break;
                 // 거래 단위 금액
                 case "4":
                     ((PersonalMain)PersonalMain.mContext).changeBtnSet(key2);
-                    break;
-                // 거래 상황
-                case "5":
-                    // "on", "off" 로 보내
-                    ((PersonalMain)PersonalMain.mContext).changelabel(key2);
-                    break;
             }
         }
     }

@@ -195,6 +195,7 @@ public class PersonalMain extends AppCompatActivity {
         changeTxtCoin(getIntent().getStringExtra("coin_bal"));
         changeBtnSet(getIntent().getStringExtra("tr_unit"));
         changelabel(getIntent().getStringExtra("on_trade"));
+        changeTxtState(getIntent().getStringExtra("profit"));
 
 // Notification 이벤트
         Intent intent = new Intent(getApplicationContext(), PersonalMain.class);
@@ -545,12 +546,14 @@ public class PersonalMain extends AppCompatActivity {
     public void changeTxtCoin(String tmp) { txt_coin.setText("현재보유 코인 (BTC) : " + tmp);}
     public void changeBtnSet(String tmp) { btn_set.setText("거래 금액 단위 : " + tmp);}
     public void changeTxtState(String tmp) {
+        if(!isInteger(tmp))
+            return;
 
-        if (Integer.parseInt(tmp) > 0) {
+        if (Double.parseDouble(tmp) > 0.0) {
             state.setTextColor(Color.RED);
             state.setText("수익률 : +" + tmp + "%");
         }
-        else if(Integer.parseInt(tmp) < 0){
+        else if(Double.parseDouble(tmp) < 0.0){
             state.setTextColor(Color.BLUE);
             state.setText("수익률 : -" + tmp + "%");
         }else {
@@ -558,6 +561,14 @@ public class PersonalMain extends AppCompatActivity {
             state.setText("수익률 :  " + tmp + "%");
         }
 
+    }
+    public boolean isInteger(String text) {
+        try {
+            int value = Integer.parseInt(text);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
     }
     public void changelabel(String tmp){
         if (tmp.equals("true")) {

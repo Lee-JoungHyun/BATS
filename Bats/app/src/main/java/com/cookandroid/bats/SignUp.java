@@ -178,8 +178,8 @@ public class SignUp extends AppCompatActivity {
                 RequestBody[] requestBodyArray = {
                         RequestBody.create(MediaType.parse("text/plain"), Name.getText().toString()),
                         RequestBody.create(MediaType.parse("text/plain"), Id.getText().toString()),
-                        RequestBody.create(MediaType.parse("text/plain"), "pk"),
-                        RequestBody.create(MediaType.parse("text/plain"), "ak"),
+                        RequestBody.create(MediaType.parse("text/plain"), "ycH8vzdTHSQ5UdixWMW5eJAhq61QqjsgLjxrThHf"),
+                        RequestBody.create(MediaType.parse("text/plain"), "IJdGCMltxNGhxofNk1Er7ET33mSALp45XxxrgZBP"),
                         RequestBody.create(MediaType.parse("text/plain"), Pw.getText().toString()),
                         RequestBody.create(MediaType.parse("text/plain"), Email.getText().toString()),
                         RequestBody.create(MediaType.parse("text/plain"), Pn.getText().toString()),
