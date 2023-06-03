@@ -179,7 +179,7 @@ public class SignUp extends AppCompatActivity {
                         RequestBody.create(MediaType.parse("text/plain"), Name.getText().toString()),
                         RequestBody.create(MediaType.parse("text/plain"), Id.getText().toString()),
                         //access_key만 보내기 & private_key는 서버에 저장
-                        RequestBody.create(MediaType.parse("text/plain"), "mcxo2H8Wr8TKQoXsrIsw5ISV3ULWWMR1bNtOIGO6"),
+                        RequestBody.create(MediaType.parse("text/plain"), Key.getText().toString()),
                         RequestBody.create(MediaType.parse("text/plain"), Pw.getText().toString()),
                         RequestBody.create(MediaType.parse("text/plain"), Email.getText().toString()),
                         RequestBody.create(MediaType.parse("text/plain"), Pn.getText().toString()),
