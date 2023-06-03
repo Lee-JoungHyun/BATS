@@ -178,8 +178,8 @@ public class SignUp extends AppCompatActivity {
                 RequestBody[] requestBodyArray = {
                         RequestBody.create(MediaType.parse("text/plain"), Name.getText().toString()),
                         RequestBody.create(MediaType.parse("text/plain"), Id.getText().toString()),
-                        RequestBody.create(MediaType.parse("text/plain"), "ycH8vzdTHSQ5UdixWMW5eJAhq61QqjsgLjxrThHf"),
-                        RequestBody.create(MediaType.parse("text/plain"), "IJdGCMltxNGhxofNk1Er7ET33mSALp45XxxrgZBP"),
+                        //access_key만 보내기 & private_key는 서버에 저장
+                        RequestBody.create(MediaType.parse("text/plain"), "mcxo2H8Wr8TKQoXsrIsw5ISV3ULWWMR1bNtOIGO6"),
                         RequestBody.create(MediaType.parse("text/plain"), Pw.getText().toString()),
                         RequestBody.create(MediaType.parse("text/plain"), Email.getText().toString()),
                         RequestBody.create(MediaType.parse("text/plain"), Pn.getText().toString()),
@@ -196,7 +196,7 @@ public class SignUp extends AppCompatActivity {
                 SignUpAPI sign_api = retrofit3.create(SignUpAPI.class);
                 Call<ResponseBody> call = sign_api.sign_up(requestBodyArray[0],requestBodyArray[1],
                         requestBodyArray[2],requestBodyArray[3],requestBodyArray[4],
-                        requestBodyArray[5],requestBodyArray[6],requestBodyArray[7]);
+                        requestBodyArray[5],requestBodyArray[6]);
                 call.enqueue(new Callback<ResponseBody>(){
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {

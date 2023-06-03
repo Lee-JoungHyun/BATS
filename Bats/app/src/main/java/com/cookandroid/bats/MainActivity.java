@@ -74,9 +74,7 @@ public class MainActivity extends AppCompatActivity {
         autologin = true;
         main = this;
         /** 필드 초기화 **/
-
-        BaseUrl = "https://2005-116-47-197-38.ngrok-free.app";
-        //BaseUrl = "http://13.125.51.94:8000/";
+        BaseUrl = "http://13.125.51.94:8000";
 
         /** 등록 토큰을 가져오는 설정 **/
         FirebaseMessaging.getInstance().getToken()
