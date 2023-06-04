@@ -34,7 +34,7 @@
             android:layout_height="50dp"
             android:layout_gravity="center"
             android:background="@drawable/personermainbutton"
-            android:text="23/05/24/21:32 - 0.0021(BTC)매수[10000]"
+            android:text="거래기록"
             android:textColor="#FFFFFF"></Button>
             <!--
             android:text="매매 기록"
@@ -65,7 +65,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:textSize="15dp"
-            android:text="현재보유 현금 (KRW) : 10,143"
+            android:text="현재보유 현금 (KRW) : "
             android:textColor="#FFFFFF">
         </TextView>
         <TextView
@@ -75,7 +75,7 @@
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
             android:textSize="15dp"
-            android:text="현재보유 코인 (BTC) : 0.023"
+            android:text="현재보유 코인 (BTC) : "
             android:textColor="#FFFFFF">
         </TextView>
 
@@ -128,7 +128,7 @@
             android:layout_width="80dp"
             android:layout_height="33dp"
             android:layout_gravity="left"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="5dp"
             android:layout_marginLeft="20dp"
             android:background="@drawable/values3"
             android:text="로그 아웃"

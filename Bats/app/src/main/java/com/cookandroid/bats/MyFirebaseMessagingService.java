@@ -19,6 +19,8 @@ import androidx.core.app.NotificationManagerCompat;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.text.DecimalFormat;
+
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     @Override
@@ -40,7 +42,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         @Override
                         public void run() {
                             // UI 변경 작업 수행
-                            ((PersonalMain)PersonalMain.mContext).changeTxtState(key2);
+                            try {
+                                ((PersonalMain) PersonalMain.mContext).changeTxtState(key2);
+                            }catch (NullPointerException e){
+
+                            }
                         }
                     });
 
@@ -48,19 +54,24 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 // 거래내역 SQLite 처리
                 case "1":
                     insertSQLite(key2);
-                    try {
-                        Handler handler1 = new Handler(Looper.getMainLooper());
-                        handler1.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                // UI 변경 작업 수행
+
+                    Handler handler1 = new Handler(Looper.getMainLooper());
+                    handler1.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            // UI 변경 작업 수행
+                            try{
                                 ((PersonalMain) PersonalMain.mContext).changeLogBtn(key2);
+                                // 현재 보유 코인량 바꾸기
+                                ((PersonalMain)PersonalMain.mContext).changeTxtCoin(key3);
+                                // 현재 보유 현금 바꾸기 (숫자)
+                                ((PersonalMain)PersonalMain.mContext).changeTxtCash(key4);
+                            }catch (NullPointerException e) {
+
                             }
-                        });
+                        }
+                    });
 
-                    }catch (NullPointerException e){
-
-                    }
 
                     break;
                 // 현재 보유 현금 바꾸기 (숫자)
@@ -70,7 +81,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         @Override
                         public void run() {
                             // UI 변경 작업 수행
+                            try{
                             ((PersonalMain)PersonalMain.mContext).changeTxtCash(key2);
+                            }catch (NullPointerException e) {
+
+                            }
                         }
                     });
 
@@ -82,12 +97,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         @Override
                         public void run() {
                             // UI 변경 작업 수행
+                            try{
                             ((PersonalMain)PersonalMain.mContext).changeTxtCoin(key2);
-
                             // 현재 보유 코인량 바꾸기
                             ((PersonalMain)PersonalMain.mContext).changeTxtCoin(key3);
                             // 현재 보유 현금 바꾸기 (숫자)
                             ((PersonalMain)PersonalMain.mContext).changeTxtCash(key4);
+                            }catch (NullPointerException e) {
+
+                            }
                         }
                     });
                     break;
@@ -98,7 +116,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                         @Override
                         public void run() {
                             // UI 변경 작업 수행
+                            try{
                             ((PersonalMain)PersonalMain.mContext).changeBtnSet(key2);
+                            }catch (NullPointerException e){
+
+                            }
                         }
                     });
 
@@ -106,11 +128,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         }
     }
     private void changeNotification(String tmp) {
+        // 소수점 5번째 자리까지 반영
+        DecimalFormat decimalFormat = new DecimalFormat();
+        decimalFormat.setMaximumFractionDigits(5);
+        String formattedNumber = decimalFormat.format(Double.parseDouble(tmp));
+
         Notification noti = new NotificationCompat.Builder(this, "Trading State")
                 .setColor(Color.BLACK)
                 .setSmallIcon(android.R.drawable.ic_notification_overlay)
                 .setContentTitle("Bats 거래 상황")
-                .setContentText(tmp + "%")
+                .setContentText(formattedNumber + "%")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setOngoing(true)
                 .build();

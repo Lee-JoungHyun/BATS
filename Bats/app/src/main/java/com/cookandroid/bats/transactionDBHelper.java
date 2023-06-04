@@ -18,7 +18,8 @@ public class transactionDBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS contact");
         onCreate(db);
     }
-    public void onDelete(SQLiteDatabase db) {
+    public void onDelete() {
+        SQLiteDatabase db = getWritableDatabase();
         db.execSQL("DROP TABLE IF EXISTS contact");
     }
 

@@ -24,11 +24,7 @@ public class ShowLogPopup extends Activity {
         setContentView(R.layout.showlog_popup);
         showlog = (ListView) findViewById(R.id.logList);
         mHelper = new transactionDBHelper(this);
-        log.add("23/05/24/21:31 - 0.0021(BTC)매수[10000]");
-        log.add("23/05/24/21:32 - 0.00212(BTC)매도[10000]");
-        log.add("23/05/24/21:33 - 0.00211(BTC)매수[10000]");
-        log.add("23/05/24/21:35 - 0.00213(BTC)매도[10000]");
-        log.add("23/05/24/21:36 - 0.00212(BTC)매수[10000]");
+
         try {
             SQLiteDatabase sqLiteDatabase = mHelper.getReadableDatabase();
             Cursor cursor = sqLiteDatabase.rawQuery("SELECT * FROM contact", null);
@@ -36,8 +32,8 @@ public class ShowLogPopup extends Activity {
                 log.add(cursor.getString(1));
             }
         }catch (SQLiteException e){
-            Toast myToast = Toast.makeText(getApplicationContext(), "출력 오류", Toast.LENGTH_SHORT);
-            myToast.show();
+            //Toast myToast = Toast.makeText(getApplicationContext(), "출력 오류", Toast.LENGTH_SHORT);
+            //myToast.show();
         }finally {
 
         }

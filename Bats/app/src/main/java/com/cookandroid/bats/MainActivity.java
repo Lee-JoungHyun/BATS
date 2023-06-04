@@ -340,5 +340,6 @@ public class MainActivity extends AppCompatActivity {
     }
     public void logout() {
         autologin = false;
+        PW.setText("");
     }
 }

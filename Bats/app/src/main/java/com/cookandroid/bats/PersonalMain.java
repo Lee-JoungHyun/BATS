@@ -55,6 +55,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Timer;
@@ -95,7 +96,7 @@ public class PersonalMain extends AppCompatActivity {
 
     private void drawChart() {
         candleList.clear();
-        String url = "https://api.upbit.com/v1/candles/minutes/1?market=KRW-BTC&count=15";
+        String url = "https://api.upbit.com/v1/candles/minutes/1?market=KRW-ETH&count=20";
         StringRequest request = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
                     @Override
@@ -171,9 +172,48 @@ public class PersonalMain extends AppCompatActivity {
         Description description = new Description();
         mHelper = new transactionDBHelper(this);
         mContext = this;
+        // Noti 선언, 초기화
+
+        // Notification 이벤트
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        //PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
+        PendingIntent pendingIntent = PendingIntent.getActivity(
+                getApplicationContext(),
+                0,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE  // PendingIntent.FLAG_CANCEL_CURRENT 대신 FLAG_UPDATE_CURRENT 사용
+        );
+
+// Notification 생성
 
 
-        description.setText("BTC Price");
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+            NotificationChannel notificationChannel =
+                    new NotificationChannel(
+                            "Trading State",
+                            "거래 현재 상황",
+                            NotificationManager.IMPORTANCE_LOW
+                    );
+            notificationChannel.setDescription("거래현황");
+            notificationManager.createNotificationChannel(notificationChannel);
+        }
+
+        Notification noti = new NotificationCompat.Builder(this, "Trading State")
+                .setColor(Color.BLACK)
+                .setSmallIcon(R.drawable.logoimg)
+                .setContentTitle("Bats 거래 상황")
+                .setContentText("0%")
+                .setContentIntent(pendingIntent)
+                .setAutoCancel(false)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setOngoing(true)
+                .build();
+
+        final NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
+
+        description.setText("ETH Price");
         description.setTextColor(Color.WHITE);
         //1a2436
         candleStickChart.setGridBackgroundColor(Color.WHITE);
@@ -197,39 +237,12 @@ public class PersonalMain extends AppCompatActivity {
         changelabel(getIntent().getStringExtra("on_trade"));
         changeTxtState(getIntent().getStringExtra("profit"));
 
-// Notification 이벤트
-        Intent intent = new Intent(getApplicationContext(), PersonalMain.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(getApplicationContext(), 0, intent, PendingIntent.FLAG_IMMUTABLE);
-
-// Notification 생성
-
-
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-            NotificationChannel notificationChannel =
-                    new NotificationChannel(
-                            "Trading State",
-                            "거래 현재 상황",
-                            NotificationManager.IMPORTANCE_DEFAULT
-                    );
-            notificationChannel.setDescription("거래현황");
-            notificationManager.createNotificationChannel(notificationChannel);
+        if (getIntent().getStringExtra("on_trade").equals("true")) {
+            notificationManager.notify(0, noti);
+        }else{
+            showlog.setText("거래기록");
+            mHelper.onDelete();
         }
-
-        Notification noti = new NotificationCompat.Builder(this, "Trading State")
-                .setColor(Color.BLACK)
-                .setSmallIcon(R.drawable.logoimg)
-                .setContentTitle("Bats 거래 상황")
-                .setContentText("+0.03%")
-                .setContentIntent(pendingIntent)
-                .setAutoCancel(false)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
-                .setOngoing(true)
-                .build();
-
-        final NotificationManager notificationManager = (NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE);
-
 
 
         logOut.setOnClickListener(new View.OnClickListener() {
@@ -250,6 +263,7 @@ public class PersonalMain extends AppCompatActivity {
                     SharedPreferences.Editor spfEditor = sharedPreferences.edit();
                     spfEditor.clear();
                     spfEditor.commit();
+                    notificationManager.cancel(0);
                     ((MainActivity)MainActivity.main).logout();
                     finish();
 
@@ -334,7 +348,10 @@ public class PersonalMain extends AppCompatActivity {
                     notificationManager.cancel(0);
                     Toast toast = Toast.makeText(getApplicationContext(), "Off.",Toast.LENGTH_SHORT);
                     toast.show();
-                    SQLiteDatabase db = null;
+                    // DB 초기화
+                    mHelper.onDelete();
+                    showlog.setText("거래기록");
+
                     // 서버에 거래 종료 신호 보내기
                     RequestBody Id = RequestBody.create(MediaType.parse("text/plain"),getIntent().getStringExtra("id"));
                     String Url = getIntent().getStringExtra("url");
@@ -536,29 +553,39 @@ public class PersonalMain extends AppCompatActivity {
                 showlog.setText(cursor.getString(1));
             }
         }catch (SQLiteException e){
-            Toast myToast = Toast.makeText(getApplicationContext(), "출력 오류", Toast.LENGTH_SHORT);
-            myToast.show();
+            //Toast myToast = Toast.makeText(getApplicationContext(), "출력 오류", Toast.LENGTH_SHORT);
+            //myToast.show();
         }finally {
 
         }
     }
-    public void changeTxtCash(String tmp) { txt_cash.setText("현재보유 현금 (KRW) : " + tmp);}
-    public void changeTxtCoin(String tmp) { txt_coin.setText("현재보유 코인 (BTC) : " + tmp);}
+    public void changeTxtCash(String tmp) {
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        String formattedNumber = decimalFormat.format(Integer.parseInt(tmp));
+        txt_cash.setText("현재보유 현금 (KRW) : " + formattedNumber);
+    }
+    public void changeTxtCoin(String tmp) {
+        double number = Double.parseDouble(tmp);
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        String formattedNumber = decimalFormat.format((int)number);
+        txt_coin.setText("현재보유 코인 (ETH) : " + formattedNumber);
+    }
     public void changeBtnSet(String tmp) { btn_set.setText("거래 금액 단위 : " + tmp);}
     public void changeTxtState(String tmp) {
-        if(!isInteger(tmp))
-            return;
+        DecimalFormat decimalFormat = new DecimalFormat();
+        decimalFormat.setMaximumFractionDigits(5);
+        String formattedNumber = decimalFormat.format(Double.parseDouble(tmp));
 
         if (Double.parseDouble(tmp) > 0.0) {
             state.setTextColor(Color.RED);
-            state.setText("수익률 : +" + tmp + "%");
+            state.setText("수익률 : +" + formattedNumber + "%");
         }
         else if(Double.parseDouble(tmp) < 0.0){
             state.setTextColor(Color.BLUE);
-            state.setText("수익률 : -" + tmp + "%");
+            state.setText("수익률 : " + formattedNumber + "%");
         }else {
             state.setTextColor(Color.RED);
-            state.setText("수익률 :  " + tmp + "%");
+            state.setText("수익률 :  " + formattedNumber + "%");
         }
 
     }
