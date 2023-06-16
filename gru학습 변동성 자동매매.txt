@@ -1,0 +1,131 @@
+import pyupbit
+import numpy as np
+import pandas as pd
+from sklearn.preprocessing import MinMaxScaler
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import GRU, Dense
+import time
+
+# API 키 설정
+access_key = 'SR4iAswz19pWG0oISpdYmKxEoVNJWetE6iqayHxb'
+secret_key = 'kc0j4aW8tgvP2GfTENOaFqgHvFqcHfSyvgnkrgWh'
+upbit = pyupbit.Upbit(access_key, secret_key)
+
+# 1분 차트 데이터 가져오기
+market = "KRW-ETH"
+chart_data = pyupbit.get_ohlcv(market, interval="minute1", count=2000)
+
+# 데이터 전처리
+close_prices = chart_data['close'].values.reshape(-1, 1)
+scaler = MinMaxScaler()
+scaled_data = scaler.fit_transform(close_prices)
+
+# 학습 데이터 생성
+window_size = 10
+
+x_train = []
+y_train = []
+for i in range(len(scaled_data) - window_size):
+    x_train.append(scaled_data[i:i + window_size])
+    y_train.append(scaled_data[i + window_size])
+
+x_train = np.array(x_train)
+y_train = np.array(y_train)
+
+# GRU 모델 정의
+model = Sequential()
+model.add(GRU(units=50, activation='tanh', input_shape=(x_train.shape[1], x_train.shape[2])))
+model.add(Dense(units=1))
+model.compile(optimizer='adam', loss='mse')
+
+# 초기 학습
+model.fit(x_train, y_train, epochs=10, batch_size=32)
+
+# 초기 자산 정보
+balance_info = upbit.get_balances()
+for b in balance_info:
+	if b['currency'] == 'KRW':
+	      initial_krw_balance = float(b['balance'])
+	elif b['currency'] == 'ETH':
+                    initial_eth_balance = float(b['balance'])
+	ticker = "KRW-ETH"
+	current_price = pyupbit.get_current_price(ticker)
+	krw_value = initial_eth_balance * current_price //현재 자산 원화환산
+while True:
+    # 1분마다 1분 차트 데이터 업데이트
+    chart_data = pyupbit.get_ohlcv(market, interval="minute1", count=window_size)
+
+    # 현재 가격 가져오기
+    current_price = chart_data['close'][-1]
+
+    # 변동성 돌파 매매 전략
+    threshold = 0.05  # 변동성 돌파 기준 비율
+    buy_price = current_price * (1 + threshold)  # 매수 기준 가격
+    sell_price = current_price * (1 - threshold)  # 매도 기준 가격
+
+    # 다음 시점 데이터 예측
+    last_window = np.array([scaled_data[-window_size:]])
+    next_price = model.predict(last_window)
+    next_price = scaler.inverse_transform(next_price)
+    predicted_price = next_price[0][0]
+
+    # 매수 주문 생성
+    buy_amount = 10000  # 매수 금액을 10,000원으로 고정
+    balance_info = upbit.get_balances()
+    for b in balance_info:
+        if b['currency'] == 'KRW':
+            krw_balance = float(b['balance'])
+        elif b['currency'] == 'ETH':
+            eth_balance = float(b['balance'])
+
+    if initial_krw_balance is None and initial_eth_balance is None:
+        initial_krw_balance = krw_balance
+        initial_eth_balance = eth_balance
+
+    if krw_balance >= buy_amount:
+        if predicted_price >= buy_price:
+            upbit.buy_market_order(market, buy_amount)
+            print("매수를 진행합니다. Price: %.2f" % buy_price)
+
+    # 매도 주문 생성
+    if predicted_price < sell_price:
+        for b in balance_info:
+            if b['currency'] == 'ETH':
+                eth_balance = float(b['balance'])
+        if eth_balance > 0:
+            upbit.sell_market_order(market, eth_balance)
+            print("매도를 진행합니다. Price: %.2f" % sell_price)
+
+    # 이전 가격 및 자산 정보 업데이트
+    prev_price = current_price
+    prev_krw_balance = krw_balance
+    prev_eth_balance = eth_balance
+
+    # 수익률 계산
+    current_krw_balance = None
+    current_eth_balance = None
+    balance_info = upbit.get_balances()
+    for b in balance_info:
+        if b['currency'] == 'KRW':
+            current_krw_balance = float(b['balance'])
+        elif b['currency'] == 'ETH':
+            current_eth_balance = float(b['balance'])
+
+
+    if current_krw_balance is not None and current_eth_balance is not None:
+        if initial_krw_balance is not None and initial_eth_balance is not None:
+            initial_balance = initial_krw_balance + initial_eth_balance * current_price
+            current_balance = current_krw_balance + current_eth_balance * current_price
+            profit = current_balance - initial_balance
+            profit_percent = (profit / initial_balance) * 100
+
+            prev_balance = prev_krw_balance + prev_eth_balance * prev_price
+            current_balance = current_krw_balance + current_eth_balance * current_price
+            profit = current_balance - prev_balance
+            profit_percent_prev = (profit / prev_balance) * 100
+
+            print("수익률(원자산기준): %.2f KRW / %.2f %%" % (profit, profit_percent))
+            print("수익률(1분전기준): %.2f KRW / %.2f %%" % (profit, profit_percent_prev))
+
+    # 1분 대기
+    time.sleep(60)
