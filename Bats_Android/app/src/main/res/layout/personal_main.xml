@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/bg">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical">
+
+        <com.github.mikephil.charting.charts.CandleStickChart
+            android:id="@+id/CandleChart"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/bg"
+
+            ></com.github.mikephil.charting.charts.CandleStickChart>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:background="@color/bg"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/btn_log"
+            android:layout_marginTop="20dp"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:background="@drawable/personermainbutton"
+            android:text="거래기록"
+            android:textColor="#FFFFFF"></Button>
+            <!--
+            android:text="매매 기록"
+            -->
+        <Button
+            android:id="@+id/btn_set"
+            android:layout_marginTop="20dp"
+            android:layout_width="350dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:background="@drawable/personermainbutton"
+            android:text="거래 단위(KRW) : 10000"
+            android:textColor="#FFFFFF"></Button>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@color/bg"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/txt_cash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:textSize="15dp"
+            android:text="현재보유 현금 (KRW) : "
+            android:textColor="#FFFFFF">
+        </TextView>
+        <TextView
+            android:id="@+id/txt_coin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:textSize="15dp"
+            android:text="현재보유 코인 (BTC) : "
+            android:textColor="#FFFFFF">
+        </TextView>
+
+
+        <TextView
+            android:id="@+id/stateTxt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:textSize="30dp"
+            android:text="수익률 = +0.03%"
+            android:textColor="#0000FF"></TextView>
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:background="@color/bg"
+        android:orientation="vertical">
+
+        <com.github.angads25.toggle.widget.LabeledSwitch
+            android:id="@+id/onBtn"
+            android:layout_width="150dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:textSize="14sp"
+
+            app:colorOn="#33DD33"
+            app:colorOff="#000033"
+            app:colorBorder="#33DD33"
+            app:on="false"
+            app:textOff="Stop"
+            app:textOn="Run"></com.github.angads25.toggle.widget.LabeledSwitch>
+
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/logOut"
+            android:layout_width="80dp"
+            android:layout_height="33dp"
+            android:layout_gravity="left"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:background="@drawable/values3"
+            android:text="로그 아웃"
+            android:textColor="@color/white"></Button>
+    </LinearLayout>
+
+
+
+
+</LinearLayout>
