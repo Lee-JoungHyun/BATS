@@ -103,5 +103,5 @@ Bats는 AI를 통해 학습한 데이터로 UpBit API를 사용해
 
 |이중현|박무근|장종엽|
 |:---:|:---:|:---:|
-|<img src="https://github.com/Lee-JoungHyun/BATS/assets/98592001/7b4906b8-903e-4786-a132-2c579d3ded8e" width="300px" height="200px"> |<img src="https://github.com/Lee-JoungHyun/BATS/assets/98592001/d0899143-fb21-48fe-a1c8-f045561dee56"  width="300px" height="200px">|<img src="https://github.com/Lee-JoungHyun/BATS/assets/98592001/0042107e-1780-4169-8f34-b18fce50730e"  width="300px" height="200px">|
+|<img src="https://github.com/Lee-JoungHyun/BATS/assets/98592001/7b4906b8-903e-4786-a132-2c579d3ded8e" width="250px" height="200px"> |<img src="https://github.com/Lee-JoungHyun/BATS/assets/98592001/d0899143-fb21-48fe-a1c8-f045561dee56"  width="250px" height="200px">|<img src="https://github.com/Lee-JoungHyun/BATS/assets/98592001/0042107e-1780-4169-8f34-b18fce50730e"  width="250px" height="200px">|
 |Android|APIServer|MachineLearning|
