@@ -1,5 +1,6 @@
 # Bats 🦇 - Bitcoin Automated Trading System
 
+
 ## 📋 목차
 - 프로젝트 진행기간
 - 개요
@@ -13,11 +14,13 @@
 ## 📅 프로젝트 진행 기간
 2022.06.10 ~ 2022.12.15 
 
+
 ## ✨ 개요
 ```
 Bats는 AI를 통해 학습한 데이터로 UpBit API를 사용해
 비트코인 자동매매하는 안드로이드 어플리케이션 입니다
 ```
+
 
 ## 💻 주요 기능
 
@@ -33,6 +36,7 @@ Bats는 AI를 통해 학습한 데이터로 UpBit API를 사용해
 ### 알림 시스템
 - 가격 변동, 매매 실행등의 중요한 이벤트에 대한 푸시 알림 제공
 - 사용자 지정 알림 설정 가능
+
 
 ## 📱 서비스 화면
 
@@ -65,6 +69,7 @@ Bats는 AI를 통해 학습한 데이터로 UpBit API를 사용해
 
 
 ## 🛠 주요 기술
+
 **Client app**
 
 ![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
@@ -86,14 +91,10 @@ Bats는 AI를 통해 학습한 데이터로 UpBit API를 사용해
     <img src="https://img.shields.io/badge/tensorflow-FF6F00?style=for-the-badge&logo=Tensorflow&logoColor=white" style="margin-right: 10px;">
 </div>
 
-
-
 **배포**
 
 ![AWS](https://img.shields.io/badge/AWS-%23FF9900.svg?style=for-the-badge&logo=amazon-aws&logoColor=white)
 <img src="https://img.shields.io/badge/Amazon%20EC2-FF9900?style=for-the-badge&logo=Amazon%20EC2&logoColor=white">
-
-
 
 **협업 툴**
 
